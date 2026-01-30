@@ -48,11 +48,11 @@ export const Contact = () => {
   };
 
   return (
-    <section id="contacto" className="py-24 bg-background">
-      <div className="container">
+    <section id="contacto" className="py-16 md:py-24 bg-background">
+      <div className="container px-4 sm:px-6">
         {/* Section header */}
         <motion.div
-          className="text-center max-w-2xl mx-auto mb-16"
+          className="text-center max-w-2xl mx-auto mb-12 md:mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -61,20 +61,20 @@ export const Contact = () => {
           <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary font-medium text-sm mb-4">
             Contáctenos
           </span>
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-foreground mb-4">
             Estamos Aquí Para
             <span className="text-gradient-gold"> Ayudarle</span>
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-muted-foreground text-base md:text-lg px-4">
             ¿Tiene alguna pregunta o desea más información? Contáctenos y le 
             responderemos a la brevedad posible.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-12">
+        <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Contact info */}
           <motion.div
-            className="lg:col-span-2 space-y-6"
+            className="lg:col-span-2 grid sm:grid-cols-2 lg:grid-cols-1 gap-4"
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -83,17 +83,17 @@ export const Contact = () => {
             {contactInfo.map((item, index) => (
               <div
                 key={index}
-                className="flex gap-4 p-6 bg-card rounded-xl shadow-card border border-border/50"
+                className="flex gap-3 sm:gap-4 p-4 sm:p-5 bg-card rounded-xl shadow-card border border-border/50"
               >
-                <div className="w-12 h-12 rounded-xl bg-gradient-gold flex items-center justify-center flex-shrink-0 shadow-gold">
-                  <item.icon className="w-6 h-6 text-dark" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-gold flex items-center justify-center flex-shrink-0 shadow-gold">
+                  <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-dark" />
                 </div>
-                <div>
-                  <h4 className="font-display font-semibold text-foreground mb-2">
+                <div className="min-w-0">
+                  <h4 className="font-display font-semibold text-foreground mb-1 sm:mb-2 text-sm sm:text-base">
                     {item.title}
                   </h4>
                   {item.details.map((detail, i) => (
-                    <p key={i} className="text-muted-foreground text-sm">
+                    <p key={i} className="text-muted-foreground text-xs sm:text-sm truncate">
                       {detail}
                     </p>
                   ))}
@@ -112,13 +112,13 @@ export const Contact = () => {
           >
             <form
               onSubmit={handleSubmit}
-              className="bg-card rounded-2xl p-8 shadow-card border border-border/50"
+              className="bg-card rounded-2xl p-5 sm:p-6 md:p-8 shadow-card border border-border/50"
             >
-              <h3 className="text-xl font-display font-semibold text-foreground mb-6">
+              <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-4 sm:mb-6">
                 Envíenos un Mensaje
               </h3>
 
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
                     Nombre Completo
@@ -130,7 +130,7 @@ export const Contact = () => {
                     }
                     placeholder="Su nombre"
                     required
-                    className="h-12"
+                    className="h-11 sm:h-12"
                   />
                 </div>
                 <div>
@@ -145,12 +145,12 @@ export const Contact = () => {
                     }
                     placeholder="correo@ejemplo.com"
                     required
-                    className="h-12"
+                    className="h-11 sm:h-12"
                   />
                 </div>
               </div>
 
-              <div className="mb-6">
+              <div className="mb-4 sm:mb-6">
                 <label className="block text-sm font-medium text-foreground mb-2">
                   Teléfono
                 </label>
@@ -160,11 +160,11 @@ export const Contact = () => {
                     setFormData({ ...formData, phone: e.target.value })
                   }
                   placeholder="+593 99 999 9999"
-                  className="h-12"
+                  className="h-11 sm:h-12"
                 />
               </div>
 
-              <div className="mb-6">
+              <div className="mb-4 sm:mb-6">
                 <label className="block text-sm font-medium text-foreground mb-2">
                   Mensaje
                 </label>
@@ -175,7 +175,7 @@ export const Contact = () => {
                   }
                   placeholder="¿En qué podemos ayudarle?"
                   required
-                  rows={5}
+                  rows={4}
                   className="resize-none"
                 />
               </div>

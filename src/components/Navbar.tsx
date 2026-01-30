@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 const navItems = [
   { name: "Inicio", href: "#inicio" },
   { name: "Servicios", href: "#servicios" },
+  { name: "Ubicaciones", href: "#ubicaciones" },
   { name: "Franquicias", href: "#franquicias" },
   { name: "Nosotros", href: "#nosotros" },
   { name: "Contacto", href: "#contacto" },
@@ -55,17 +56,17 @@ export const Navbar = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="container flex items-center justify-between py-4">
+        <div className="container px-4 sm:px-6 flex items-center justify-between py-3 md:py-4">
           {/* Logo */}
-          <a href="#inicio" className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-gradient-gold flex items-center justify-center shadow-gold">
-              <span className="text-dark font-display font-bold text-xl">P</span>
+          <a href="#inicio" className="flex items-center gap-2 sm:gap-3">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-gold flex items-center justify-center shadow-gold">
+              <span className="text-dark font-display font-bold text-lg sm:text-xl">P</span>
             </div>
             <div className="flex flex-col">
-              <span className="font-display text-xl font-bold text-foreground">
+              <span className="font-display text-lg sm:text-xl font-bold text-foreground">
                 Punto Cambio
               </span>
-              <span className="text-xs text-muted-foreground tracking-wider uppercase">
+              <span className="text-[10px] sm:text-xs text-muted-foreground tracking-wider uppercase hidden sm:block">
                 Pagos & Cambios
               </span>
             </div>

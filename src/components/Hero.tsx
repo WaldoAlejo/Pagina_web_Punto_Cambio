@@ -13,7 +13,7 @@ export const Hero = () => {
   return (
     <section
       id="inicio"
-      className="relative min-h-[90vh] flex items-center overflow-hidden"
+      className="relative min-h-[80vh] sm:min-h-[85vh] lg:min-h-[90vh] flex items-center overflow-hidden"
     >
       {/* Background image */}
       <div
@@ -24,20 +24,20 @@ export const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="container relative z-10 py-20">
+      <div className="container px-4 sm:px-6 relative z-10 py-12 sm:py-16 md:py-20">
         <div className="max-w-3xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-block px-4 py-2 rounded-full bg-primary/20 text-primary font-medium text-sm mb-6 backdrop-blur-sm border border-primary/30">
+            <span className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-primary/20 text-primary font-medium text-xs sm:text-sm mb-4 sm:mb-6 backdrop-blur-sm border border-primary/30">
               Casa de Cambios Autorizada en Ecuador
             </span>
           </motion.div>
 
           <motion.h1
-            className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white leading-tight mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white leading-tight mb-4 sm:mb-6"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
@@ -47,7 +47,7 @@ export const Hero = () => {
           </motion.h1>
 
           <motion.p
-            className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl"
+            className="text-base sm:text-lg md:text-xl text-white/80 mb-6 sm:mb-8 max-w-2xl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -57,23 +57,23 @@ export const Hero = () => {
           </motion.p>
 
           <motion.div
-            className="flex flex-wrap gap-4 mb-12"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-12"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <Button variant="gold" size="xl">
+            <Button variant="gold" size="lg" className="w-full sm:w-auto">
               Comenzar Ahora
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
-            <Button variant="outline-light" size="xl">
+            <Button variant="outline-light" size="lg" className="w-full sm:w-auto">
               Nuestros Servicios
             </Button>
           </motion.div>
 
           {/* Feature badges */}
           <motion.div
-            className="flex flex-wrap gap-6"
+            className="flex flex-wrap gap-4 sm:gap-6"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -81,12 +81,12 @@ export const Hero = () => {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="flex items-center gap-3 text-white/90"
+                className="flex items-center gap-2 sm:gap-3 text-white/90"
               >
-                <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
-                  <feature.icon className="w-5 h-5 text-primary" />
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
+                  <feature.icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                 </div>
-                <span className="font-medium">{feature.text}</span>
+                <span className="font-medium text-sm sm:text-base">{feature.text}</span>
               </div>
             ))}
           </motion.div>
