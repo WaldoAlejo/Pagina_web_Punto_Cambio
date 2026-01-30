@@ -6,9 +6,15 @@ import { Button } from "@/components/ui/button";
 
 const currencies = [
   { code: "USD", name: "Dólar Americano", flag: "🇺🇸", rate: 1 },
-  { code: "EUR", name: "Euro", flag: "🇪🇺", rate: 1.08 },
-  { code: "COP", name: "Peso Colombiano", flag: "🇨🇴", rate: 0.00024 },
+  { code: "EUR", name: "Euro", flag: "🇪🇺", rate: 1.09 },
+  { code: "COP", name: "Peso Colombiano", flag: "🇨🇴", rate: 0.00025 },
   { code: "PEN", name: "Sol Peruano", flag: "🇵🇪", rate: 0.27 },
+  { code: "BRL", name: "Real Brasileño", flag: "🇧🇷", rate: 0.20 },
+  { code: "MXN", name: "Peso Mexicano", flag: "🇲🇽", rate: 0.059 },
+  { code: "ARS", name: "Peso Argentino", flag: "🇦🇷", rate: 0.0010 },
+  { code: "GBP", name: "Libra Esterlina", flag: "🇬🇧", rate: 1.27 },
+  { code: "BOB", name: "Boliviano", flag: "🇧🇴", rate: 0.14 },
+  { code: "AUD", name: "Dólar Australiano", flag: "🇦🇺", rate: 0.64 },
 ];
 
 export const CurrencyCalculator = () => {
@@ -21,7 +27,7 @@ export const CurrencyCalculator = () => {
   const convertedAmount = (parseFloat(amount || "0") * toRate) / fromRate;
 
   return (
-    <section className="py-16 md:py-24 bg-dark relative overflow-hidden">
+    <section id="calculadora" className="py-16 md:py-24 bg-dark relative overflow-hidden">
       {/* Decorative background */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-10 w-48 sm:w-72 h-48 sm:h-72 bg-primary rounded-full blur-3xl" />

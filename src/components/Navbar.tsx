@@ -30,17 +30,21 @@ export const Navbar = () => {
       <div className="hidden lg:block bg-dark text-white/80 text-sm py-2">
         <div className="container flex justify-between items-center">
           <div className="flex items-center gap-6">
-            <a href="tel:+593999999999" className="flex items-center gap-2 hover:text-primary transition-colors">
+            <a href="tel:+593995710648" className="flex items-center gap-2 hover:text-primary transition-colors">
               <Phone className="w-4 h-4" />
-              <span>+593 99 999 9999</span>
+              <span>+593 99 571 0648</span>
+            </a>
+            <a href="tel:+59322867144" className="flex items-center gap-2 hover:text-primary transition-colors">
+              <Phone className="w-4 h-4" />
+              <span>+593 2 286 7144</span>
             </a>
             <span className="flex items-center gap-2">
               <MapPin className="w-4 h-4" />
-              <span>Valle de los Chillos, Ecuador</span>
+              <span>Valle de los Chillos - Plaza del Valle</span>
             </span>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-primary font-semibold">Lun - Vie: 9:00 - 18:00</span>
+            <span className="text-primary font-semibold">Lun - Vie: 9:00 - 18:00 | Sáb: 9:00 - 14:00</span>
           </div>
         </div>
       </div>
@@ -88,7 +92,11 @@ export const Navbar = () => {
 
           {/* CTA button */}
           <div className="hidden lg:flex items-center gap-4">
-            <Button variant="gold" size="lg">
+            <Button 
+              variant="gold" 
+              size="lg"
+              onClick={() => window.location.href = '#calculadora'}
+            >
               Cotizar Ahora
             </Button>
           </div>
@@ -122,7 +130,14 @@ export const Navbar = () => {
                     {item.name}
                   </a>
                 ))}
-                <Button variant="gold" className="mt-4 w-full">
+                <Button 
+                  variant="gold" 
+                  className="mt-4 w-full"
+                  onClick={() => {
+                    setIsOpen(false);
+                    window.location.href = '#calculadora';
+                  }}
+                >
                   Cotizar Ahora
                 </Button>
               </div>

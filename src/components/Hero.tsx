@@ -62,11 +62,21 @@ export const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <Button variant="gold" size="lg" className="w-full sm:w-auto">
-              Comenzar Ahora
+            <Button 
+              variant="gold" 
+              size="lg" 
+              className="w-full sm:w-auto"
+              onClick={() => window.location.href = '#calculadora'}
+            >
+              Cotizar Ahora
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
-            <Button variant="outline-light" size="lg" className="w-full sm:w-auto">
+            <Button 
+              variant="outline-light" 
+              size="lg" 
+              className="w-full sm:w-auto"
+              onClick={() => window.location.href = '#servicios'}
+            >
               Nuestros Servicios
             </Button>
           </motion.div>

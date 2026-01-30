@@ -21,10 +21,10 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { icon: Facebook, href: "#", label: "Facebook" },
+  { icon: Facebook, href: "https://www.facebook.com/Western-Union-Franquicia-597056390700280/", label: "Facebook" },
   { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Youtube, href: "#", label: "YouTube" },
+  { icon: Twitter, href: "https://twitter.com/WFranquicia", label: "Twitter" },
+  { icon: Youtube, href: "https://www.youtube.com/channel/UCqmCzNr5IgtpxExm5Jbprig", label: "YouTube" },
 ];
 
 export const Footer = () => {
@@ -105,25 +105,34 @@ export const Footer = () => {
               <li className="flex items-start gap-2 sm:gap-3">
                 <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0 mt-0.5" />
                 <span className="text-white/60 text-xs sm:text-sm">
-                  Valle de los Chillos, San Rafael, Ecuador
+                  Valle de los Chillos, San Rafael<br />
+                  Centro Comercial Plaza del Valle
                 </span>
               </li>
               <li className="flex items-center gap-2 sm:gap-3">
                 <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
-                <a
-                  href="tel:+593999999999"
-                  className="text-white/60 hover:text-primary transition-colors text-xs sm:text-sm"
-                >
-                  +593 99 999 9999
-                </a>
+                <div className="flex flex-col gap-1">
+                  <a
+                    href="tel:+593995710648"
+                    className="text-white/60 hover:text-primary transition-colors text-xs sm:text-sm"
+                  >
+                    +593 99 571 0648
+                  </a>
+                  <a
+                    href="tel:+59322867144"
+                    className="text-white/60 hover:text-primary transition-colors text-xs sm:text-sm"
+                  >
+                    +593 2 286 7144
+                  </a>
+                </div>
               </li>
               <li className="flex items-center gap-2 sm:gap-3">
                 <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
                 <a
-                  href="mailto:info@puntocambio.ec"
+                  href="mailto:info@casasdecambios.com"
                   className="text-white/60 hover:text-primary transition-colors text-xs sm:text-sm break-all"
                 >
-                  info@puntocambio.ec
+                  info@casasdecambios.com
                 </a>
               </li>
             </ul>

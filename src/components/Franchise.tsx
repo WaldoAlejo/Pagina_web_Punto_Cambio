@@ -123,12 +123,20 @@ export const Franchise = () => {
             </ul>
 
             <div className="flex flex-wrap gap-4">
-              <Button variant="gold" size="lg">
+              <Button 
+                variant="gold" 
+                size="lg"
+                onClick={() => window.location.href = '#contacto'}
+              >
                 Solicitar Información
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
-              <Button variant="outline" size="lg">
-                Descargar Brochure
+              <Button 
+                variant="outline" 
+                size="lg"
+                onClick={() => window.open('mailto:franquicias@casasdecambios.com?subject=Solicitud de Información - Franquicia Punto Cambio', '_blank')}
+              >
+                Contactar por Email
               </Button>
             </div>
           </motion.div>

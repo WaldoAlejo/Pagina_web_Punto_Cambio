@@ -15,12 +15,12 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Teléfono",
-    details: ["+593 99 999 9999", "+593 2 123 4567"],
+    details: ["+593 99 571 0648", "+593 2 286 7144"],
   },
   {
     icon: Mail,
     title: "Email",
-    details: ["info@puntocambio.ec", "franquicias@puntocambio.ec"],
+    details: ["info@casasdecambios.com", "franquicias@casasdecambios.com"],
   },
   {
     icon: Clock,
@@ -159,7 +159,7 @@ export const Contact = () => {
                   onChange={(e) =>
                     setFormData({ ...formData, phone: e.target.value })
                   }
-                  placeholder="+593 99 999 9999"
+                  placeholder="+593 99 571 0648"
                   className="h-11 sm:h-12"
                 />
               </div>
