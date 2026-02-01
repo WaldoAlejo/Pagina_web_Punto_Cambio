@@ -47,11 +47,11 @@ const locations = [
 
 export const LocationsMap = () => {
   return (
-    <section id="ubicaciones" className="py-16 md:py-24 bg-secondary/30">
+    <section id="ubicaciones" className="bg-secondary/30">
       <div className="container px-4 sm:px-6">
         {/* Section header */}
         <motion.div
-          className="text-center max-w-2xl mx-auto mb-12 md:mb-16"
+          className="text-center max-w-2xl mx-auto mb-8 md:mb-10"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -73,7 +73,7 @@ export const LocationsMap = () => {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Map */}
           <motion.div
-            className="order-2 lg:order-1 rounded-2xl overflow-hidden shadow-elevated bg-card h-[300px] sm:h-[400px] lg:h-[500px]"
+            className="order-2 lg:order-1 rounded-2xl overflow-hidden shadow-elevated bg-card h-[400px] lg:h-[600px]"
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -100,7 +100,7 @@ export const LocationsMap = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="max-h-[500px] overflow-y-auto pr-2 space-y-4 scrollbar-thin">
+            <div className="max-h-[600px] overflow-y-auto pr-2 space-y-4 custom-scrollbar">
               {locations.map((location, index) => (
                 <motion.div
                   key={location.id}

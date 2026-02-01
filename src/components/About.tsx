@@ -24,11 +24,11 @@ const values = [
 
 export const About = () => {
   return (
-    <section id="nosotros" className="py-24 bg-secondary/30">
-      <div className="container">
+    <section id="nosotros" className="bg-secondary/30">
+      <div className="container px-4 sm:px-6">
         {/* Section header */}
         <motion.div
-          className="text-center max-w-2xl mx-auto mb-16"
+          className="text-center max-w-2xl mx-auto mb-8 md:mb-10"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

@@ -6,11 +6,37 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Scroll snap para ajustar secciones a la pantalla */
+main {
+  scroll-snap-type: y proximity;
+}
+
+section[id] {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+  min-height: 100vh;
+  padding-top: 3.5rem; /* Altura navbar mobile (h-14 = 56px) */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  section[id] {
+    padding-top: 6.5rem; /* Top bar + navbar (104px) */
+  }
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
@@ -19,11 +45,40 @@ html {
 
 ::-webkit-scrollbar-thumb {
   background: #D4AF37;
-  border-radius: 5px;
+  border-radius: 6px;
+  border: 2px solid #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #B8941F;
+}
+
+/* Custom scrollbar para elementos con clase custom-scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #D4AF37;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #B8941F;
+}
+
+/* Prevent horizontal scroll */
+* {
+  max-width: 100%;
+}
+
+/* Smooth transitions for all links */
+a {
+  transition: all 0.3s ease;
 }
 
 /* Punto Cambio Design System

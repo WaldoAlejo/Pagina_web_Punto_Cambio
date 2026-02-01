@@ -13,7 +13,7 @@ export const Hero = () => {
   return (
     <section
       id="inicio"
-      className="relative min-h-[80vh] sm:min-h-[85vh] lg:min-h-[90vh] flex items-center overflow-hidden"
+      className="relative flex items-center overflow-hidden"
     >
       {/* Background image */}
       <div
@@ -24,7 +24,7 @@ export const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="container px-4 sm:px-6 relative z-10 py-12 sm:py-16 md:py-20">
+      <div className="container px-4 sm:px-6 relative z-10 py-16 sm:py-20 md:py-24">
         <div className="max-w-3xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -64,20 +64,22 @@ export const Hero = () => {
           >
             <Button 
               variant="gold" 
-              size="lg" 
+              size="lg"
               className="w-full sm:w-auto"
-              onClick={() => window.location.href = '#calculadora'}
+              asChild
             >
-              Cotizar Ahora
-              <ArrowRight className="w-5 h-5 ml-2" />
+              <a href="#calculadora">
+                Cotizar Ahora
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </a>
             </Button>
             <Button 
               variant="outline-light" 
               size="lg" 
               className="w-full sm:w-auto"
-              onClick={() => window.location.href = '#servicios'}
+              asChild
             >
-              Nuestros Servicios
+              <a href="#servicios">Nuestros Servicios</a>
             </Button>
           </motion.div>
 

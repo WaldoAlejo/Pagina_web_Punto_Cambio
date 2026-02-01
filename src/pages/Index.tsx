@@ -18,9 +18,9 @@ const Index = () => {
       <Navbar />
       <main>
         <Hero />
-        <QuickActions />
         <Services />
         <CurrencyCalculator />
+        <QuickActions />
         <TrustSection />
         <LocationsMap />
         <Franchise />

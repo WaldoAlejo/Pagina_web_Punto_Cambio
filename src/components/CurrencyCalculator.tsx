@@ -27,7 +27,7 @@ export const CurrencyCalculator = () => {
   const convertedAmount = (parseFloat(amount || "0") * toRate) / fromRate;
 
   return (
-    <section id="calculadora" className="py-16 md:py-24 bg-dark relative overflow-hidden">
+    <section id="calculadora" className="bg-dark relative overflow-hidden">
       {/* Decorative background */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-10 w-48 sm:w-72 h-48 sm:h-72 bg-primary rounded-full blur-3xl" />
@@ -35,7 +35,7 @@ export const CurrencyCalculator = () => {
       </div>
 
       <div className="container px-4 sm:px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-start">
           {/* Left content */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -44,16 +44,16 @@ export const CurrencyCalculator = () => {
             transition={{ duration: 0.6 }}
             className="text-center lg:text-left"
           >
-            <span className="inline-block px-4 py-2 rounded-full bg-primary/20 text-primary font-medium text-sm mb-4 sm:mb-6">
+            <span className="inline-block px-4 py-2 rounded-full bg-primary/20 text-primary font-medium text-sm mb-3 sm:mb-4">
               Calculadora de Cambio
             </span>
             
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white mb-4 sm:mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white mb-3 sm:mb-4">
               Conozca Nuestras
               <span className="text-gradient-gold block">Tasas de Cambio</span>
             </h2>
             
-            <p className="text-white/70 text-base md:text-lg mb-6 sm:mb-8 max-w-lg mx-auto lg:mx-0">
+            <p className="text-white/70 text-base md:text-lg mb-4 sm:mb-6 max-w-lg mx-auto lg:mx-0">
               Utilice nuestra calculadora para obtener una estimación rápida. 
               Visítenos para obtener las tasas más competitivas del mercado.
             </p>
@@ -76,18 +76,18 @@ export const CurrencyCalculator = () => {
 
           {/* Calculator card */}
           <motion.div
-            className="bg-white rounded-2xl p-5 sm:p-6 md:p-8 shadow-elevated"
+            className="bg-white rounded-2xl p-5 md:p-6 shadow-elevated"
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-4 sm:mb-6">
+            <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-3 sm:mb-4">
               Calculadora Rápida
             </h3>
 
             {/* From currency */}
-            <div className="mb-4 sm:mb-6">
+            <div className="mb-3 sm:mb-4">
               <label className="block text-sm font-medium text-muted-foreground mb-2">
                 Usted envía
               </label>
@@ -96,13 +96,13 @@ export const CurrencyCalculator = () => {
                   type="number"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
-                  className="flex-1 text-lg font-semibold h-12 sm:h-14"
+                  className="flex-1 text-lg font-semibold h-11 sm:h-12"
                   placeholder="0.00"
                 />
                 <select
                   value={fromCurrency}
                   onChange={(e) => setFromCurrency(e.target.value)}
-                  className="w-full sm:w-32 h-12 sm:h-14 rounded-lg border border-input bg-background px-4 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full sm:w-32 h-11 sm:h-12 rounded-lg border border-input bg-background px-4 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary"
                 >
                   {currencies.map((currency) => (
                     <option key={currency.code} value={currency.code}>
@@ -114,7 +114,7 @@ export const CurrencyCalculator = () => {
             </div>
 
             {/* Swap button */}
-            <div className="flex justify-center my-4">
+            <div className="flex justify-center my-3">
               <button
                 onClick={() => {
                   setFromCurrency(toCurrency);
@@ -127,12 +127,12 @@ export const CurrencyCalculator = () => {
             </div>
 
             {/* To currency */}
-            <div className="mb-4 sm:mb-6">
+            <div className="mb-3 sm:mb-4">
               <label className="block text-sm font-medium text-muted-foreground mb-2">
                 Usted recibe
               </label>
               <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
-                <div className="flex-1 h-12 sm:h-14 rounded-lg bg-secondary flex items-center px-4">
+                <div className="flex-1 h-11 sm:h-12 rounded-lg bg-secondary flex items-center px-4">
                   <span className="text-lg font-semibold text-foreground">
                     {convertedAmount.toFixed(2)}
                   </span>
@@ -140,7 +140,7 @@ export const CurrencyCalculator = () => {
                 <select
                   value={toCurrency}
                   onChange={(e) => setToCurrency(e.target.value)}
-                  className="w-full sm:w-32 h-12 sm:h-14 rounded-lg border border-input bg-background px-4 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full sm:w-32 h-11 sm:h-12 rounded-lg border border-input bg-background px-4 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary"
                 >
                   {currencies.map((currency) => (
                     <option key={currency.code} value={currency.code}>
@@ -152,7 +152,7 @@ export const CurrencyCalculator = () => {
             </div>
 
             {/* Rate info */}
-            <div className="bg-secondary/50 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6">
+            <div className="bg-secondary/50 rounded-lg p-3 mb-3 sm:mb-4">
               <div className="flex flex-col sm:flex-row sm:justify-between text-sm gap-1">
                 <span className="text-muted-foreground">Tasa de cambio</span>
                 <span className="font-medium text-foreground">
@@ -161,11 +161,11 @@ export const CurrencyCalculator = () => {
               </div>
             </div>
 
-            <Button variant="gold" className="w-full" size="lg">
-              Obtener Cotización Exacta
+            <Button variant="gold" className="w-full" size="lg" asChild>
+              <a href="#contacto">Obtener Cotización Exacta</a>
             </Button>
 
-            <p className="text-xs text-muted-foreground text-center mt-4">
+            <p className="text-xs text-muted-foreground text-center mt-3">
               * Las tasas son referenciales. Consulte en nuestras oficinas para tasas exactas.
             </p>
           </motion.div>

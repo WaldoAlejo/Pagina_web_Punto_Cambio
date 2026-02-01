@@ -53,24 +53,24 @@ export const Navbar = () => {
       <motion.nav
         className={`sticky top-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "bg-white/95 backdrop-blur-md shadow-card"
-            : "bg-transparent"
+            ? "bg-white shadow-lg"
+            : "bg-white/95 backdrop-blur-sm"
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="container px-4 sm:px-6 flex items-center justify-between py-3 md:py-4">
+        <div className="container px-4 sm:px-6 flex items-center justify-between h-14 md:h-16">
           {/* Logo */}
-          <a href="#inicio" className="flex items-center gap-2 sm:gap-3">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-gold flex items-center justify-center shadow-gold">
-              <span className="text-dark font-display font-bold text-lg sm:text-xl">P</span>
+          <a href="#inicio" className="flex items-center gap-2">
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-gold flex items-center justify-center shadow-gold">
+              <span className="text-dark font-display font-bold text-lg md:text-xl">P</span>
             </div>
             <div className="flex flex-col">
-              <span className="font-display text-lg sm:text-xl font-bold text-foreground">
+              <span className="font-display text-base md:text-xl font-bold text-foreground">
                 Punto Cambio
               </span>
-              <span className="text-[10px] sm:text-xs text-muted-foreground tracking-wider uppercase hidden sm:block">
+              <span className="text-[9px] md:text-xs text-muted-foreground tracking-wider uppercase hidden sm:block">
                 Pagos & Cambios
               </span>
             </div>
@@ -82,6 +82,15 @@ export const Navbar = () => {
               <a
                 key={item.name}
                 href={item.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  const target = document.querySelector(item.href);
+                  if (target) {
+                    const navbarHeight = 104; // Top bar (40px) + navbar (64px)
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+                    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                  }
+                }}
                 className="text-foreground/80 hover:text-primary font-medium transition-colors relative group"
               >
                 {item.name}
@@ -95,9 +104,17 @@ export const Navbar = () => {
             <Button 
               variant="gold" 
               size="lg"
-              onClick={() => window.location.href = '#calculadora'}
+              onClick={(e) => {
+                e.preventDefault();
+                const target = document.querySelector('#calculadora');
+                if (target) {
+                  const navbarHeight = 104;
+                  const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+                  window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                }
+              }}
             >
-              Cotizar Ahora
+              <a href="#calculadora">Cotizar Ahora</a>
             </Button>
           </div>
 
@@ -117,15 +134,26 @@ export const Navbar = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-white border-t"
+              className="lg:hidden bg-white border-t shadow-lg"
             >
-              <div className="container py-4 flex flex-col gap-4">
+              <div className="container py-6 flex flex-col gap-3">
                 {navItems.map((item) => (
                   <a
                     key={item.name}
                     href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className="text-foreground/80 hover:text-primary font-medium py-2 transition-colors"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsOpen(false);
+                      setTimeout(() => {
+                        const target = document.querySelector(item.href);
+                        if (target) {
+                          const offset = 56; // Navbar mobile height
+                          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                          window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                        }
+                      }, 300);
+                    }}
+                    className="text-foreground/80 hover:text-primary font-medium py-3 px-4 rounded-lg hover:bg-secondary/50 transition-all"
                   >
                     {item.name}
                   </a>
@@ -133,12 +161,20 @@ export const Navbar = () => {
                 <Button 
                   variant="gold" 
                   className="mt-4 w-full"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
                     setIsOpen(false);
-                    window.location.href = '#calculadora';
+                    setTimeout(() => {
+                      const target = document.querySelector('#calculadora');
+                      if (target) {
+                        const offset = 56;
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                      }
+                    }, 300);
                   }}
                 >
-                  Cotizar Ahora
+                  <a href="#calculadora">Cotizar Ahora</a>
                 </Button>
               </div>
             </motion.div>

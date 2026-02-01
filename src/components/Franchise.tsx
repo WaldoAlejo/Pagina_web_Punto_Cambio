@@ -19,9 +19,9 @@ const stats = [
 
 export const Franchise = () => {
   return (
-    <section id="franquicias" className="py-24 bg-background">
-      <div className="container">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+    <section id="franquicias" className="bg-background">
+      <div className="container px-4 sm:px-6">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left - Image/Visual */}
           <motion.div
             className="relative"
@@ -126,18 +126,21 @@ export const Franchise = () => {
               <Button 
                 variant="gold" 
                 size="lg"
-                onClick={() => window.location.href = '#contacto'}
+                asChild
               >
-                Solicitar Información
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <a href="#contacto">
+                  Solicitar Información
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </a>
               </Button>
-              <Button 
-                variant="outline" 
-                size="lg"
-                onClick={() => window.open('mailto:franquicias@casasdecambios.com?subject=Solicitud de Información - Franquicia Punto Cambio', '_blank')}
-              >
-                Contactar por Email
-              </Button>
+              <a href="mailto:franquicias@casasdecambios.com?subject=Solicitud de Información - Franquicia Punto Cambio">
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                >
+                  Contactar por Email
+                </Button>
+              </a>
             </div>
           </motion.div>
         </div>

@@ -48,11 +48,11 @@ export const Contact = () => {
   };
 
   return (
-    <section id="contacto" className="py-16 md:py-24 bg-background">
+    <section id="contacto" className="bg-background">
       <div className="container px-4 sm:px-6">
         {/* Section header */}
         <motion.div
-          className="text-center max-w-2xl mx-auto mb-12 md:mb-16"
+          className="text-center max-w-2xl mx-auto mb-8 md:mb-10"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -83,7 +83,7 @@ export const Contact = () => {
             {contactInfo.map((item, index) => (
               <div
                 key={index}
-                className="flex gap-3 sm:gap-4 p-4 sm:p-5 bg-card rounded-xl shadow-card border border-border/50"
+                className="flex gap-4 p-5 bg-card rounded-xl shadow-card border border-border/50"
               >
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-gold flex items-center justify-center flex-shrink-0 shadow-gold">
                   <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-dark" />
@@ -112,9 +112,9 @@ export const Contact = () => {
           >
             <form
               onSubmit={handleSubmit}
-              className="bg-card rounded-2xl p-5 sm:p-6 md:p-8 shadow-card border border-border/50"
+              className="bg-card rounded-2xl p-6 md:p-8 shadow-card border border-border/50"
             >
-              <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-4 sm:mb-6">
+              <h3 className="text-xl font-display font-semibold text-foreground mb-6">
                 Envíenos un Mensaje
               </h3>
 

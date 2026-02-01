@@ -70,11 +70,11 @@ const itemVariants = {
 
 export const Services = () => {
   return (
-    <section id="servicios" className="py-16 md:py-24 bg-secondary/50">
+    <section id="servicios" className="bg-secondary/50">
       <div className="container px-4 sm:px-6">
         {/* Section header */}
         <motion.div
-          className="text-center max-w-2xl mx-auto mb-12 md:mb-16"
+          className="text-center max-w-2xl mx-auto mb-8 md:mb-10"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -95,7 +95,7 @@ export const Services = () => {
 
         {/* Services grid */}
         <motion.div
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -105,7 +105,7 @@ export const Services = () => {
             <motion.div
               key={index}
               variants={itemVariants}
-              className="group bg-card rounded-xl p-5 sm:p-6 md:p-8 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1 border border-border/50"
+              className="group bg-card rounded-xl p-6 md:p-8 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1 border border-border/50"
             >
               <div
                 className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-4 sm:mb-6 shadow-gold group-hover:scale-110 transition-transform duration-300`}
