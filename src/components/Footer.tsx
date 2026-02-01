@@ -1,6 +1,6 @@
 import { Facebook, Instagram, Twitter, Youtube, MapPin, Phone, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
-import logo from "@/assets/logo.svg";
+import logo from "@/assets/logo_transparent_4x.png";
 
 const footerLinks = {
   servicios: [
@@ -42,7 +42,7 @@ export const Footer = () => {
               <img 
                 src={logo} 
                 alt="Punto Cambio" 
-                className="h-12 sm:h-14 w-auto brightness-0 invert" 
+                className="h-12 sm:h-14 w-auto" 
               />
             </div>
             <p className="text-white/60 mb-4 sm:mb-6 max-w-sm text-sm sm:text-base">
