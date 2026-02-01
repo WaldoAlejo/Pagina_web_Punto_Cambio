@@ -1,17 +1,18 @@
 import { Facebook, Instagram, Twitter, Youtube, MapPin, Phone, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const footerLinks = {
   servicios: [
-    { name: "Cambio de Divisas", href: "#servicios" },
-    { name: "Envío de Dinero", href: "#servicios" },
-    { name: "Compra de Oro", href: "#servicios" },
-    { name: "Courier", href: "#servicios" },
+    { name: "Cambio de Divisas", href: "/servicios" },
+    { name: "Envío de Dinero", href: "/servicios" },
+    { name: "Compra de Oro", href: "/servicios" },
+    { name: "Courier", href: "/servicios" },
   ],
   empresa: [
-    { name: "Sobre Nosotros", href: "#nosotros" },
-    { name: "Franquicias", href: "#franquicias" },
-    { name: "Trabaja con Nosotros", href: "#contacto" },
-    { name: "Contacto", href: "#contacto" },
+    { name: "Sobre Nosotros", href: "/nosotros" },
+    { name: "Franquicias", href: "/franquicias" },
+    { name: "Trabaja con Nosotros", href: "/contacto" },
+    { name: "Contacto", href: "/contacto" },
   ],
   legal: [
     { name: "Términos y Condiciones", href: "#" },
@@ -70,12 +71,12 @@ export const Footer = () => {
             <ul className="space-y-2 sm:space-y-3">
               {footerLinks.servicios.map((link, index) => (
                 <li key={index}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     className="text-white/60 hover:text-primary transition-colors text-sm"
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -87,12 +88,12 @@ export const Footer = () => {
             <ul className="space-y-2 sm:space-y-3">
               {footerLinks.empresa.map((link, index) => (
                 <li key={index}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     className="text-white/60 hover:text-primary transition-colors text-sm"
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

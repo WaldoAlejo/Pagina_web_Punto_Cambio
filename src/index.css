@@ -13,26 +13,27 @@ body {
   overflow-x: hidden;
 }
 
-/* Scroll snap para ajustar secciones a la pantalla */
-main {
+/* Eliminar scroll snap para mejor navegación */
+/* main {
   scroll-snap-type: y proximity;
-}
+} */
 
-section[id] {
+/* Remover estilos que causan problemas de navegación */
+/* section[id] {
   scroll-snap-align: start;
   scroll-snap-stop: normal;
   min-height: 100vh;
-  padding-top: 3.5rem; /* Altura navbar mobile (h-14 = 56px) */
+  padding-top: 3.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
+} */
 
-@media (min-width: 1024px) {
+/* @media (min-width: 1024px) {
   section[id] {
-    padding-top: 6.5rem; /* Top bar + navbar (104px) */
+    padding-top: 6.5rem;
   }
-}
+} */
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {

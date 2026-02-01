@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Shield, Clock, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const features = [
@@ -12,8 +13,7 @@ const features = [
 export const Hero = () => {
   return (
     <section
-      id="inicio"
-      className="relative flex items-center overflow-hidden"
+      className="relative flex items-center overflow-hidden min-h-[calc(100vh-64px)] lg:min-h-screen"
     >
       {/* Background image */}
       <div
@@ -31,23 +31,23 @@ export const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-primary/20 text-primary font-medium text-xs sm:text-sm mb-4 sm:mb-6 backdrop-blur-sm border border-primary/30">
-              Casa de Cambios Autorizada en Ecuador
+            <span className="inline-block px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-primary/20 to-gold-light/20 text-white font-semibold text-xs sm:text-sm mb-6 sm:mb-8 backdrop-blur-sm border border-primary/40 shadow-lg">
+              🏆 Casa de Cambios Autorizada en Ecuador
             </span>
           </motion.div>
 
           <motion.h1
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white leading-tight mb-4 sm:mb-6"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold text-white leading-[1.1] mb-6 sm:mb-8"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             Experiencia y Confianza
-            <span className="block text-gradient-gold">a Su Servicio</span>
+            <span className="block text-gradient-gold mt-2">a Su Servicio</span>
           </motion.h1>
 
           <motion.p
-            className="text-base sm:text-lg md:text-xl text-white/80 mb-6 sm:mb-8 max-w-2xl"
+            className="text-lg sm:text-xl md:text-2xl text-white/90 mb-8 sm:mb-10 max-w-2xl leading-relaxed font-light"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -57,7 +57,7 @@ export const Hero = () => {
           </motion.p>
 
           <motion.div
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-12"
+            className="flex flex-col sm:flex-row gap-4 sm:gap-5 mb-10 sm:mb-14"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
@@ -65,27 +65,27 @@ export const Hero = () => {
             <Button 
               variant="gold" 
               size="lg"
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto text-base px-8 py-6 shadow-xl shadow-primary/50 hover:shadow-2xl hover:shadow-primary/60 transition-all duration-300"
               asChild
             >
-              <a href="#calculadora">
+              <Link to="/calculadora">
                 Cotizar Ahora
                 <ArrowRight className="w-5 h-5 ml-2" />
-              </a>
+              </Link>
             </Button>
             <Button 
               variant="outline-light" 
               size="lg" 
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto text-base px-8 py-6 border-2 hover:bg-white/20 backdrop-blur-sm transition-all duration-300"
               asChild
             >
-              <a href="#servicios">Nuestros Servicios</a>
+              <Link to="/servicios">Nuestros Servicios</Link>
             </Button>
           </motion.div>
 
           {/* Feature badges */}
           <motion.div
-            className="flex flex-wrap gap-4 sm:gap-6"
+            className="flex flex-wrap gap-6 sm:gap-8"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -93,12 +93,12 @@ export const Hero = () => {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="flex items-center gap-2 sm:gap-3 text-white/90"
+                className="flex items-center gap-3 bg-white/10 backdrop-blur-md px-5 py-3 rounded-xl border border-white/20 shadow-lg"
               >
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
-                  <feature.icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+                <div className="w-10 h-10 rounded-lg bg-gradient-gold flex items-center justify-center shadow-md">
+                  <feature.icon className="w-5 h-5 text-dark" />
                 </div>
-                <span className="font-medium text-sm sm:text-base">{feature.text}</span>
+                <span className="text-white font-semibold text-sm sm:text-base">{feature.text}</span>
               </div>
             ))}
           </motion.div>

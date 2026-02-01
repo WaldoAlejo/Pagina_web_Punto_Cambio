@@ -27,7 +27,7 @@ export const CurrencyCalculator = () => {
   const convertedAmount = (parseFloat(amount || "0") * toRate) / fromRate;
 
   return (
-    <section id="calculadora" className="bg-dark relative overflow-hidden">
+    <section className="bg-gradient-to-br from-dark via-dark-lighter to-dark relative overflow-hidden py-16 md:py-20 lg:py-24">
       {/* Decorative background */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-10 w-48 sm:w-72 h-48 sm:h-72 bg-primary rounded-full blur-3xl" />
@@ -35,7 +35,7 @@ export const CurrencyCalculator = () => {
       </div>
 
       <div className="container px-4 sm:px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-start">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           {/* Left content */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -44,16 +44,16 @@ export const CurrencyCalculator = () => {
             transition={{ duration: 0.6 }}
             className="text-center lg:text-left"
           >
-            <span className="inline-block px-4 py-2 rounded-full bg-primary/20 text-primary font-medium text-sm mb-3 sm:mb-4">
-              Calculadora de Cambio
+            <span className="inline-block px-6 py-2.5 rounded-full bg-gradient-to-r from-primary/20 to-gold-light/20 text-white font-semibold text-sm mb-5 border border-primary/30">
+              💱 Calculadora de Cambio
             </span>
             
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white mb-3 sm:mb-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white mb-5">
               Conozca Nuestras
-              <span className="text-gradient-gold block">Tasas de Cambio</span>
+              <span className="text-gradient-gold block mt-2">Tasas de Cambio</span>
             </h2>
             
-            <p className="text-white/70 text-base md:text-lg mb-4 sm:mb-6 max-w-lg mx-auto lg:mx-0">
+            <p className="text-white/80 text-lg md:text-xl mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
               Utilice nuestra calculadora para obtener una estimación rápida. 
               Visítenos para obtener las tasas más competitivas del mercado.
             </p>

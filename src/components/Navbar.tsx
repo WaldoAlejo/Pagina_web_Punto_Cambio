@@ -2,19 +2,21 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
-  { name: "Inicio", href: "#inicio" },
-  { name: "Servicios", href: "#servicios" },
-  { name: "Ubicaciones", href: "#ubicaciones" },
-  { name: "Franquicias", href: "#franquicias" },
-  { name: "Nosotros", href: "#nosotros" },
-  { name: "Contacto", href: "#contacto" },
+  { name: "Inicio", href: "/" },
+  { name: "Servicios", href: "/servicios" },
+  { name: "Ubicaciones", href: "/ubicaciones" },
+  { name: "Franquicias", href: "/franquicias" },
+  { name: "Nosotros", href: "/nosotros" },
+  { name: "Contacto", href: "/contacto" },
 ];
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,78 +26,78 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
+
   return (
     <>
       {/* Top bar */}
-      <div className="hidden lg:block bg-dark text-white/80 text-sm py-2">
+      <div className="hidden lg:block bg-gradient-to-r from-dark via-dark-lighter to-dark text-white/90 text-sm py-3 border-b border-primary/20">
         <div className="container flex justify-between items-center">
-          <div className="flex items-center gap-6">
-            <a href="tel:+593995710648" className="flex items-center gap-2 hover:text-primary transition-colors">
-              <Phone className="w-4 h-4" />
-              <span>+593 99 571 0648</span>
+          <div className="flex items-center gap-8">
+            <a href="tel:+593995710648" className="flex items-center gap-2 hover:text-primary transition-all duration-300 group">
+              <Phone className="w-4 h-4 group-hover:scale-110 transition-transform" />
+              <span className="font-medium">+593 99 571 0648</span>
             </a>
-            <a href="tel:+59322867144" className="flex items-center gap-2 hover:text-primary transition-colors">
-              <Phone className="w-4 h-4" />
-              <span>+593 2 286 7144</span>
+            <a href="tel:+59322867144" className="flex items-center gap-2 hover:text-primary transition-all duration-300 group">
+              <Phone className="w-4 h-4 group-hover:scale-110 transition-transform" />
+              <span className="font-medium">+593 2 286 7144</span>
             </a>
-            <span className="flex items-center gap-2">
-              <MapPin className="w-4 h-4" />
+            <span className="flex items-center gap-2 text-white/70">
+              <MapPin className="w-4 h-4 text-primary" />
               <span>Valle de los Chillos - Plaza del Valle</span>
             </span>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-primary font-semibold">Lun - Vie: 9:00 - 18:00 | Sáb: 9:00 - 14:00</span>
+            <span className="text-gradient-gold font-semibold tracking-wide">Lun - Vie: 9:00 - 18:00 | Sáb: 9:00 - 14:00</span>
           </div>
         </div>
       </div>
 
       {/* Main navbar */}
       <motion.nav
-        className={`sticky top-0 z-50 transition-all duration-300 ${
+        className={`sticky top-0 z-50 transition-all duration-300 border-b ${
           scrolled
-            ? "bg-white shadow-lg"
-            : "bg-white/95 backdrop-blur-sm"
+            ? "bg-white shadow-xl border-border/50"
+            : "bg-white/98 backdrop-blur-md border-transparent"
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="container px-4 sm:px-6 flex items-center justify-between h-14 md:h-16">
+        <div className="container px-4 sm:px-6 flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a href="#inicio" className="flex items-center gap-2">
-            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-gold flex items-center justify-center shadow-gold">
-              <span className="text-dark font-display font-bold text-lg md:text-xl">P</span>
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-gold flex items-center justify-center shadow-lg shadow-primary/30 group-hover:shadow-xl group-hover:shadow-primary/40 transition-all duration-300 group-hover:scale-105">
+              <span className="text-dark font-display font-bold text-xl md:text-2xl">P</span>
             </div>
             <div className="flex flex-col">
-              <span className="font-display text-base md:text-xl font-bold text-foreground">
+              <span className="font-display text-lg md:text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
                 Punto Cambio
               </span>
-              <span className="text-[9px] md:text-xs text-muted-foreground tracking-wider uppercase hidden sm:block">
+              <span className="text-[10px] md:text-xs text-muted-foreground tracking-widest uppercase hidden sm:block font-medium">
                 Pagos & Cambios
               </span>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop nav */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-1">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.name}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  const target = document.querySelector(item.href);
-                  if (target) {
-                    const navbarHeight = 104; // Top bar (40px) + navbar (64px)
-                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
-                    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
-                  }
-                }}
-                className="text-foreground/80 hover:text-primary font-medium transition-colors relative group"
+                to={item.href}
+                className={`px-4 py-2 rounded-lg text-foreground/80 hover:text-primary hover:bg-primary/5 font-medium transition-all duration-300 relative group ${
+                  location.pathname === item.href ? 'text-primary bg-primary/10' : ''
+                }`}
               >
                 {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
-              </a>
+                <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-gold transition-all duration-300 ${
+                  location.pathname === item.href ? 'w-6' : 'w-0 group-hover:w-6'
+                }`} />
+              </Link>
             ))}
           </div>
 
@@ -104,17 +106,9 @@ export const Navbar = () => {
             <Button 
               variant="gold" 
               size="lg"
-              onClick={(e) => {
-                e.preventDefault();
-                const target = document.querySelector('#calculadora');
-                if (target) {
-                  const navbarHeight = 104;
-                  const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
-                  window.scrollTo({ top: targetPosition, behavior: 'smooth' });
-                }
-              }}
+              asChild
             >
-              <a href="#calculadora">Cotizar Ahora</a>
+              <Link to="/calculadora">Cotizar Ahora</Link>
             </Button>
           </div>
 
@@ -138,43 +132,22 @@ export const Navbar = () => {
             >
               <div className="container py-6 flex flex-col gap-3">
                 {navItems.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
-                    href={item.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setIsOpen(false);
-                      setTimeout(() => {
-                        const target = document.querySelector(item.href);
-                        if (target) {
-                          const offset = 56; // Navbar mobile height
-                          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-                          window.scrollTo({ top: targetPosition, behavior: 'smooth' });
-                        }
-                      }, 300);
-                    }}
-                    className="text-foreground/80 hover:text-primary font-medium py-3 px-4 rounded-lg hover:bg-secondary/50 transition-all"
+                    to={item.href}
+                    className={`text-foreground/80 hover:text-primary font-medium py-3 px-4 rounded-lg hover:bg-secondary/50 transition-all ${
+                      location.pathname === item.href ? 'bg-secondary/50 text-primary' : ''
+                    }`}
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
                 <Button 
                   variant="gold" 
                   className="mt-4 w-full"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setIsOpen(false);
-                    setTimeout(() => {
-                      const target = document.querySelector('#calculadora');
-                      if (target) {
-                        const offset = 56;
-                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-                        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
-                      }
-                    }, 300);
-                  }}
+                  asChild
                 >
-                  <a href="#calculadora">Cotizar Ahora</a>
+                  <Link to="/calculadora">Cotizar Ahora</Link>
                 </Button>
               </div>
             </motion.div>

@@ -19,7 +19,7 @@ const stats = [
 
 export const Franchise = () => {
   return (
-    <section id="franquicias" className="bg-background">
+    <section className="bg-background py-8 md:py-12 lg:py-16">
       <div className="container px-4 sm:px-6">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left - Image/Visual */}

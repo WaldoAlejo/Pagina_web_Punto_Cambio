@@ -24,7 +24,7 @@ const values = [
 
 export const About = () => {
   return (
-    <section id="nosotros" className="bg-secondary/30">
+    <section className="bg-secondary/30 py-8 md:py-12 lg:py-16">
       <div className="container px-4 sm:px-6">
         {/* Section header */}
         <motion.div
