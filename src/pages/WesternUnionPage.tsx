@@ -4,6 +4,8 @@ import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { motion } from "framer-motion";
 import { Send, Globe, Clock, Shield, DollarSign, MapPin, CheckCircle2, ArrowRight, Users } from "lucide-react";
+import { Link } from "react-router-dom";
+import heroBg from "@/assets/hero-bg.jpg";
 
 const features = [
   {
@@ -79,21 +81,24 @@ const WesternUnionPage = () => {
       <Navbar />
       <main>
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-dark via-dark-lighter to-dark py-16 md:py-20 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-20 left-10 w-72 h-72 bg-primary rounded-full blur-3xl" />
-            <div className="absolute bottom-20 right-10 w-96 h-96 bg-gold-light rounded-full blur-3xl" />
+        <section className="relative flex items-center overflow-hidden min-h-[60vh] sm:min-h-[70vh] lg:min-h-[80vh]">
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: `url(${heroBg})` }}
+          >
+            <div className="absolute inset-0 bg-gradient-hero" />
           </div>
 
-          <div className="container px-4 sm:px-6 relative z-10">
+          <div className="container px-4 sm:px-6 relative z-10 py-16 md:py-20">
             <motion.div
-              className="text-center max-w-4xl mx-auto"
+              className="max-w-4xl mx-auto text-center"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <span className="inline-block px-6 py-2.5 rounded-full bg-gradient-to-r from-primary/20 to-gold-light/20 text-white font-semibold text-sm mb-6 border border-primary/30">
-                📤 Western Union Autorizado
+              <span className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-primary/20 to-gold-light/20 text-white font-semibold text-sm mb-6 border border-primary/30">
+                <Send className="w-4 h-4 text-primary" />
+                Western Union Autorizado
               </span>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-white mb-6">
                 Envío de Dinero
@@ -110,19 +115,41 @@ const WesternUnionPage = () => {
         {/* Features Section */}
         <section className="py-16 md:py-20 bg-gradient-to-b from-white to-secondary/30">
           <div className="container px-4 sm:px-6">
-            <motion.div
-              className="text-center max-w-3xl mx-auto mb-12"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
-                Ventajas de <span className="text-gradient-gold">Western Union</span>
-              </h2>
-              <p className="text-muted-foreground text-lg">
-                El líder mundial en transferencias de dinero
-              </p>
-            </motion.div>
+            {/* Intro with Image */}
+            <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
+                  Ventajas de <span className="text-gradient-gold">Western Union</span>
+                </h2>
+                <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
+                  Como agente autorizado de Western Union, ofrecemos el servicio líder mundial en transferencias de dinero internacionales con la confianza de millones de usuarios.
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  Envía dinero a más de 200 países y territorios con la garantía de que llegará en minutos a través de nuestra red de más de 500,000 agentes en todo el mundo.
+                </p>
+              </motion.div>
+              <motion.div
+                className="relative"
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+                  <img 
+                    src="https://images.unsplash.com/photo-1607863680198-23d4b2565df0?w=800&q=80" 
+                    alt="Money transfer service"
+                    className="w-full h-[300px] sm:h-[350px] md:h-[400px] object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark/60 to-transparent" />
+                </div>
+              </motion.div>
+            </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
               {features.map((feature, index) => (
@@ -228,22 +255,41 @@ const WesternUnionPage = () => {
         {/* Popular Destinations */}
         <section className="py-16 bg-white">
           <div className="container px-4 sm:px-6">
-            <motion.div
-              className="text-center max-w-3xl mx-auto mb-12"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <MapPin className="w-16 h-16 text-primary mx-auto mb-6" />
-              <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
-                Destinos <span className="text-gradient-gold">Populares</span>
-              </h2>
-              <p className="text-muted-foreground text-lg">
-                Envía dinero a los países más solicitados
-              </p>
-            </motion.div>
+            <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
+              <motion.div
+                className="order-2 lg:order-1 relative"
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+                  <img 
+                    src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80" 
+                    alt="Global destinations"
+                    className="w-full h-[300px] sm:h-[350px] md:h-[400px] object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent" />
+                </div>
+              </motion.div>
+              <motion.div
+                className="text-center lg:text-left order-1 lg:order-2"
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <MapPin className="w-16 h-16 text-primary mx-auto lg:mx-0 mb-6" />
+                <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
+                  Destinos <span className="text-gradient-gold">Populares</span>
+                </h2>
+                <p className="text-muted-foreground text-lg mb-6">
+                  Envía dinero a los países más solicitados por nuestros clientes con tarifas competitivas y entrega inmediata.
+                </p>
+              </motion.div>
+            </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 max-w-5xl mx-auto">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-5xl mx-auto">
               {popularDestinations.map((dest, index) => (
                 <motion.div
                   key={index}
@@ -284,19 +330,19 @@ const WesternUnionPage = () => {
                   Visita cualquiera de nuestras sucursales con tu documento de identidad y realiza tu envío en minutos.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a
-                    href="/ubicaciones"
+                  <Link
+                    to="/ubicaciones"
                     className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-gold text-dark font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
                   >
                     Ver Ubicaciones
                     <ArrowRight className="w-5 h-5" />
-                  </a>
-                  <a
-                    href="/contacto"
+                  </Link>
+                  <Link
+                    to="/contacto"
                     className="inline-block px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-xl border-2 border-white/30 hover:bg-white/20 transition-all duration-300"
                   >
                     Más Información
-                  </a>
+                  </Link>
                 </div>
               </div>
             </motion.div>

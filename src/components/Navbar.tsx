@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
+import logo from "@/assets/logo.svg";
 
 const navItems = [
   { name: "Inicio", href: "/" },
@@ -69,18 +70,12 @@ export const Navbar = () => {
       >
         <div className="container px-4 sm:px-6 flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-gold flex items-center justify-center shadow-lg shadow-primary/30 group-hover:shadow-xl group-hover:shadow-primary/40 transition-all duration-300 group-hover:scale-105">
-              <span className="text-dark font-display font-bold text-xl md:text-2xl">P</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-display text-lg md:text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
-                Punto Cambio
-              </span>
-              <span className="text-[10px] md:text-xs text-muted-foreground tracking-widest uppercase hidden sm:block font-medium">
-                Pagos & Cambios
-              </span>
-            </div>
+          <Link to="/" className="flex items-center group">
+            <img 
+              src={logo} 
+              alt="Punto Cambio" 
+              className="h-10 sm:h-12 md:h-14 w-auto transition-all duration-300 group-hover:scale-105" 
+            />
           </Link>
 
           {/* Desktop nav */}

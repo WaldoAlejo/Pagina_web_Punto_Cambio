@@ -31,8 +31,9 @@ export const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-block px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-primary/20 to-gold-light/20 text-white font-semibold text-xs sm:text-sm mb-6 sm:mb-8 backdrop-blur-sm border border-primary/40 shadow-lg">
-              🏆 Casa de Cambios Autorizada en Ecuador
+            <span className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-primary/20 to-gold-light/20 text-white font-semibold text-xs sm:text-sm mb-6 sm:mb-8 backdrop-blur-sm border border-primary/40 shadow-lg">
+              <Award className="w-4 h-4 text-primary" />
+              Casa de Cambios Autorizada en Ecuador
             </span>
           </motion.div>
 

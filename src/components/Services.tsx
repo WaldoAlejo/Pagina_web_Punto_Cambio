@@ -87,8 +87,9 @@ export const Services = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <span className="inline-block px-6 py-2.5 rounded-full bg-gradient-to-r from-primary/10 to-gold-light/10 text-primary font-semibold text-sm mb-5 border border-primary/20">
-            💼 Nuestros Servicios
+          <span className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-primary/10 to-gold-light/10 text-primary font-semibold text-sm mb-5 border border-primary/20">
+            <Briefcase className="w-4 h-4 text-primary" />
+            Nuestros Servicios
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-foreground mb-5">
             Soluciones Financieras

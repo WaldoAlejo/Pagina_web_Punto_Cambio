@@ -1,12 +1,14 @@
 import { Facebook, Instagram, Twitter, Youtube, MapPin, Phone, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
+import logo from "@/assets/logo.svg";
 
 const footerLinks = {
   servicios: [
-    { name: "Cambio de Divisas", href: "/servicios" },
-    { name: "Envío de Dinero", href: "/servicios" },
-    { name: "Compra de Oro", href: "/servicios" },
-    { name: "Courier", href: "/servicios" },
+    { name: "Cambio de Divisas", href: "/cambio-divisas" },
+    { name: "Envío de Dinero", href: "/western-union" },
+    { name: "Compra de Oro", href: "/oro" },
+    { name: "Courier", href: "/courier" },
+    { name: "Recaudaciones", href: "/recaudaciones" },
   ],
   empresa: [
     { name: "Sobre Nosotros", href: "/nosotros" },
@@ -23,7 +25,7 @@ const footerLinks = {
 
 const socialLinks = [
   { icon: Facebook, href: "https://www.facebook.com/Western-Union-Franquicia-597056390700280/", label: "Facebook" },
-  { icon: Instagram, href: "#", label: "Instagram" },
+  { icon: Instagram, href: "https://www.instagram.com/", label: "Instagram" },
   { icon: Twitter, href: "https://twitter.com/WFranquicia", label: "Twitter" },
   { icon: Youtube, href: "https://www.youtube.com/channel/UCqmCzNr5IgtpxExm5Jbprig", label: "YouTube" },
 ];
@@ -36,16 +38,12 @@ export const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="col-span-2 lg:col-span-2">
-            <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-gold flex items-center justify-center">
-                <span className="text-dark font-display font-bold text-lg sm:text-xl">P</span>
-              </div>
-              <div>
-                <span className="font-display text-lg sm:text-xl font-bold">Punto Cambio</span>
-                <span className="block text-[10px] sm:text-xs text-white/60 tracking-wider uppercase">
-                  Pagos & Cambios
-                </span>
-              </div>
+            <div className="mb-4 sm:mb-6">
+              <img 
+                src={logo} 
+                alt="Punto Cambio" 
+                className="h-12 sm:h-14 w-auto brightness-0 invert" 
+              />
             </div>
             <p className="text-white/60 mb-4 sm:mb-6 max-w-sm text-sm sm:text-base">
               Más de 25 años brindando servicios transaccionales y cambio de divisas 
@@ -149,13 +147,14 @@ export const Footer = () => {
           </p>
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
             {footerLinks.legal.map((link, index) => (
-              <a
+              <button
                 key={index}
-                href={link.href}
-                className="text-white/40 hover:text-primary text-xs sm:text-sm transition-colors"
+                onClick={(e) => e.preventDefault()}
+                className="text-white/40 hover:text-white/50 text-xs sm:text-sm transition-colors cursor-not-allowed"
+                title="Próximamente disponible"
               >
                 {link.name}
-              </a>
+              </button>
             ))}
           </div>
         </div>

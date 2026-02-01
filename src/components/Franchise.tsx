@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { CheckCircle2, Users, TrendingUp, Shield, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const benefits = [
   "Modelo de negocio probado con más de 25 años de experiencia",
@@ -30,7 +31,14 @@ export const Franchise = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-gradient-to-br from-dark to-dark-lighter">
+            <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
+              <img 
+                src="https://images.unsplash.com/photo-1556742031-c6961e8560b0?w=800&q=80" 
+                alt="Business franchise opportunity"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-dark/80 to-dark-lighter/80" />
+              
               {/* Stats overlay */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="grid grid-cols-3 gap-8 p-8">
@@ -128,19 +136,20 @@ export const Franchise = () => {
                 size="lg"
                 asChild
               >
-                <a href="#contacto">
+                <Link to="/contacto">
                   Solicitar Información
                   <ArrowRight className="w-5 h-5 ml-2" />
+                </Link>
+              </Button>
+              <Button 
+                variant="outline" 
+                size="lg"
+                asChild
+              >
+                <a href="mailto:franquicias@casasdecambios.com?subject=Solicitud de Información - Franquicia Punto Cambio">
+                  Contactar por Email
                 </a>
               </Button>
-              <a href="mailto:franquicias@casasdecambios.com?subject=Solicitud de Información - Franquicia Punto Cambio">
-                <Button 
-                  variant="outline" 
-                  size="lg"
-                >
-                  Contactar por Email
-                </Button>
-              </a>
             </div>
           </motion.div>
         </div>

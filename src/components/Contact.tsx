@@ -71,6 +71,28 @@ export const Contact = () => {
           </p>
         </motion.div>
 
+        {/* Hero Image */}
+        <motion.div
+          className="mb-12 rounded-3xl overflow-hidden shadow-2xl max-w-5xl mx-auto"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="relative">
+            <img 
+              src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1200&q=80" 
+              alt="Contact us"
+              className="w-full h-[200px] sm:h-[250px] md:h-[300px] object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-dark/70 via-dark/30 to-transparent" />
+            <div className="absolute bottom-6 left-6 text-white">
+              <p className="text-xl font-semibold">¿Necesitas ayuda?</p>
+              <p className="text-white/80">Nuestro equipo está listo para atenderte</p>
+            </div>
+          </div>
+        </motion.div>
+
         <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Contact info */}
           <motion.div

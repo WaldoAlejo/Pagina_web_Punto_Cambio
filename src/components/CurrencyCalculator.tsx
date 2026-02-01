@@ -44,8 +44,9 @@ export const CurrencyCalculator = () => {
             transition={{ duration: 0.6 }}
             className="text-center lg:text-left"
           >
-            <span className="inline-block px-6 py-2.5 rounded-full bg-gradient-to-r from-primary/20 to-gold-light/20 text-white font-semibold text-sm mb-5 border border-primary/30">
-              💱 Calculadora de Cambio
+            <span className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-primary/20 to-gold-light/20 text-white font-semibold text-sm mb-5 border border-primary/30">
+              <ArrowRightLeft className="w-4 h-4 text-primary" />
+              Calculadora de Cambio
             </span>
             
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white mb-5">

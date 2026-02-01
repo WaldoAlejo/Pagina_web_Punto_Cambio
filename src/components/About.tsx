@@ -26,6 +26,43 @@ export const About = () => {
   return (
     <section className="bg-secondary/30 py-8 md:py-12 lg:py-16">
       <div className="container px-4 sm:px-6">
+        {/* Hero Image Section */}
+        <motion.div
+          className="mb-12 md:mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary font-medium text-sm mb-4">
+                Sobre Nosotros
+              </span>
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">
+                Experiencia y Confianza
+                <span className="text-gradient-gold"> Desde 1998</span>
+              </h2>
+              <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
+                Punto Cambio es una empresa de servicios transaccionales y cambios de divisas 
+                con más de 25 años de experiencia en el mercado ecuatoriano.
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                Nos hemos consolidado como una de las redes más confiables del país, ofreciendo 
+                servicios de calidad y desarrollando el talento joven ecuatoriano.
+              </p>
+            </div>
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+              <img 
+                src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=800&q=80" 
+                alt="About Punto Cambio"
+                className="w-full h-[300px] sm:h-[350px] md:h-[400px] object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-dark/60 to-transparent" />
+            </div>
+          </div>
+        </motion.div>
+
         {/* Section header */}
         <motion.div
           className="text-center max-w-2xl mx-auto mb-8 md:mb-10"
@@ -34,17 +71,9 @@ export const About = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary font-medium text-sm mb-4">
-            Sobre Nosotros
-          </span>
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">
-            Experiencia y Confianza
-            <span className="text-gradient-gold"> Desde 1998</span>
-          </h2>
-          <p className="text-muted-foreground text-lg">
-            Punto Cambio es una empresa de servicios transaccionales y cambios de divisas 
-            con más de 25 años de experiencia en el mercado ecuatoriano.
-          </p>
+          <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-4">
+            Nuestros <span className="text-gradient-gold">Principios</span>
+          </h3>
         </motion.div>
 
         {/* Values grid */}

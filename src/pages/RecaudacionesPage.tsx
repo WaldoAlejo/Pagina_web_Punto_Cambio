@@ -3,7 +3,9 @@ import { Newsletter } from "@/components/Newsletter";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { motion } from "framer-motion";
-import { Receipt, Building2, CreditCard, ArrowRightLeft, CheckCircle2, Wallet } from "lucide-react";
+import { Receipt, Building2, CreditCard, ArrowRightLeft, CheckCircle2, Wallet, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import heroBg from "@/assets/hero-bg.jpg";
 
 const services = [
   {
@@ -47,21 +49,24 @@ const RecaudacionesPage = () => {
       <Navbar />
       <main>
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-dark via-dark-lighter to-dark py-16 md:py-20 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-20 left-10 w-72 h-72 bg-primary rounded-full blur-3xl" />
-            <div className="absolute bottom-20 right-10 w-96 h-96 bg-gold-light rounded-full blur-3xl" />
+        <section className="relative flex items-center overflow-hidden min-h-[60vh] sm:min-h-[70vh] lg:min-h-[80vh]">
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: `url(${heroBg})` }}
+          >
+            <div className="absolute inset-0 bg-gradient-hero" />
           </div>
 
-          <div className="container px-4 sm:px-6 relative z-10">
+          <div className="container px-4 sm:px-6 relative z-10 py-16 md:py-20">
             <motion.div
-              className="text-center max-w-4xl mx-auto"
+              className="max-w-4xl mx-auto text-center"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <span className="inline-block px-6 py-2.5 rounded-full bg-gradient-to-r from-primary/20 to-gold-light/20 text-white font-semibold text-sm mb-6 border border-primary/30">
-                🏦 Servicios Financieros
+              <span className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-primary/20 to-gold-light/20 text-white font-semibold text-sm mb-6 border border-primary/30">
+                <Building2 className="w-4 h-4 text-primary" />
+                Servicios Financieros
               </span>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-white mb-6">
                 Recaudaciones y
@@ -75,8 +80,61 @@ const RecaudacionesPage = () => {
           </div>
         </section>
 
+        {/* Intro Section with Image */}
+        <section className="py-16 bg-white">
+          <div className="container px-4 sm:px-6">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <Building2 className="w-16 h-16 text-primary mb-6" />
+                <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
+                  Servicios <span className="text-gradient-gold">Bancarios Cerca</span> de Ti
+                </h2>
+                <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
+                  Evita largas filas y congestión en bancos. Realiza tus transacciones financieras de manera rápida, segura y cerca de tu hogar o trabajo.
+                </p>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  Nuestra red inter-bancaria te permite realizar depósitos, pagos de tarjetas, transferencias y recaudaciones asociadas con más de 10 instituciones financieras del país.
+                </p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-gradient-to-br from-primary/10 to-gold-light/10 p-4 rounded-xl border border-primary/20">
+                    <Receipt className="w-8 h-8 text-primary mb-2" />
+                    <p className="font-bold text-lg text-foreground">10+</p>
+                    <p className="text-sm text-muted-foreground">Bancos</p>
+                  </div>
+                  <div className="bg-gradient-to-br from-primary/10 to-gold-light/10 p-4 rounded-xl border border-primary/20">
+                    <CheckCircle2 className="w-8 h-8 text-primary mb-2" />
+                    <p className="font-bold text-lg text-foreground">100%</p>
+                    <p className="text-sm text-muted-foreground">Seguro</p>
+                  </div>
+                </div>
+              </motion.div>
+              <motion.div
+                className="relative"
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+                  <img 
+                    src="https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=800&q=80" 
+                    alt="Banking and financial services"
+                    className="w-full h-[300px] sm:h-[400px] lg:h-[500px] object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark/60 to-transparent" />
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
         {/* Services Grid */}
-        <section className="py-16 md:py-20 bg-gradient-to-b from-white to-secondary/30">
+        <section className="py-16 md:py-20 bg-gradient-to-b from-secondary/30 to-white">
           <div className="container px-4 sm:px-6">
             <motion.div
               className="text-center max-w-3xl mx-auto mb-12"
@@ -219,18 +277,19 @@ const RecaudacionesPage = () => {
                   Visite cualquiera de nuestras sucursales y realice sus operaciones bancarias de forma rápida y segura.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a
-                    href="/ubicaciones"
-                    className="inline-block px-8 py-4 bg-gradient-gold text-dark font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+                  <Link
+                    to="/ubicaciones"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-gold text-dark font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
                   >
                     Ver Ubicaciones
-                  </a>
-                  <a
-                    href="/contacto"
+                    <ArrowRight className="w-5 h-5" />
+                  </Link>
+                  <Link
+                    to="/contacto"
                     className="inline-block px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-xl border-2 border-white/30 hover:bg-white/20 transition-all duration-300"
                   >
                     Más Información
-                  </a>
+                  </Link>
                 </div>
               </div>
             </motion.div>

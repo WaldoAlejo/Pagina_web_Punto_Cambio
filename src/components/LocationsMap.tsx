@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { MapPin, Clock, Phone, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const locations = [
   {
@@ -158,10 +159,12 @@ export const LocationsMap = () => {
             {/* CTA */}
             <div className="pt-4">
               <p className="text-muted-foreground text-sm mb-3">
-                ¿No encuentra una sucursal cerca? Contáctenos para conocer más opciones.
+                Todas nuestras sucursales están disponibles. ¿Necesita más información?
               </p>
-              <Button variant="gold" className="w-full sm:w-auto">
-                Ver Todas las Sucursales
+              <Button variant="gold" className="w-full sm:w-auto" asChild>
+                <Link to="/contacto">
+                  Contáctenos
+                </Link>
               </Button>
             </div>
           </motion.div>

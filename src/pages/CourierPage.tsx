@@ -3,7 +3,9 @@ import { Newsletter } from "@/components/Newsletter";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { motion } from "framer-motion";
-import { Package, Truck, Globe, Clock, Shield, CheckCircle2 } from "lucide-react";
+import { Package, Truck, Globe, Clock, Shield, CheckCircle2, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import heroBg from "@/assets/hero-bg.jpg";
 
 const services = [
   {
@@ -78,21 +80,24 @@ const CourierPage = () => {
       <Navbar />
       <main>
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-dark via-dark-lighter to-dark py-16 md:py-20 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-20 left-10 w-72 h-72 bg-primary rounded-full blur-3xl" />
-            <div className="absolute bottom-20 right-10 w-96 h-96 bg-gold-light rounded-full blur-3xl" />
+        <section className="relative flex items-center overflow-hidden min-h-[60vh] sm:min-h-[70vh] lg:min-h-[80vh]">
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: `url(${heroBg})` }}
+          >
+            <div className="absolute inset-0 bg-gradient-hero" />
           </div>
 
-          <div className="container px-4 sm:px-6 relative z-10">
+          <div className="container px-4 sm:px-6 relative z-10 py-16 md:py-20">
             <motion.div
-              className="text-center max-w-4xl mx-auto"
+              className="max-w-4xl mx-auto text-center"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <span className="inline-block px-6 py-2.5 rounded-full bg-gradient-to-r from-primary/20 to-gold-light/20 text-white font-semibold text-sm mb-6 border border-primary/30">
-                📦 Servicio de Courier
+              <span className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-primary/20 to-gold-light/20 text-white font-semibold text-sm mb-6 border border-primary/30">
+                <Package className="w-4 h-4 text-primary" />
+                Servicio de Courier
               </span>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-white mb-6">
                 Servicios de Envío
@@ -106,8 +111,60 @@ const CourierPage = () => {
           </div>
         </section>
 
-        {/* Services Grid */}
-        <section className="py-16 md:py-20 bg-gradient-to-b from-white to-secondary/30">
+        {/* Intro Section with Image */}
+        <section className="py-16 bg-gradient-to-b from-white to-secondary/30">
+          <div className="container px-4 sm:px-6">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
+                  Servicios de <span className="text-gradient-gold">Courier Confiables</span>
+                </h2>
+                <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
+                  Ofrecemos soluciones completas de envío y logística tanto nacional como internacional, respaldados por la calidad y garantía de DHL.
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  Desde documentos urgentes hasta carga masiva, contamos con el servicio adecuado para cada necesidad de envío con seguimiento en tiempo real y entrega garantizada.
+                </p>
+                <div className="mt-8 grid grid-cols-2 gap-4">
+                  <div className="bg-gradient-to-br from-primary/10 to-gold-light/10 p-4 rounded-xl border border-primary/20">
+                    <Package className="w-8 h-8 text-primary mb-2" />
+                    <p className="font-bold text-lg text-foreground">6+</p>
+                    <p className="text-sm text-muted-foreground">Servicios</p>
+                  </div>
+                  <div className="bg-gradient-to-br from-primary/10 to-gold-light/10 p-4 rounded-xl border border-primary/20">
+                    <Clock className="w-8 h-8 text-primary mb-2" />
+                    <p className="font-bold text-lg text-foreground">24h</p>
+                    <p className="text-sm text-muted-foreground">Entrega Rápida</p>
+                  </div>
+                </div>
+              </motion.div>
+              <motion.div
+                className="relative"
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+                  <img 
+                    src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80" 
+                    alt="Delivery service"
+                    className="w-full h-[300px] sm:h-[400px] lg:h-[500px] object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark/60 to-transparent" />
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* Services Section */}
+        <section className="py-16 bg-gradient-to-br from-secondary/20 to-white">
           <div className="container px-4 sm:px-6">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {services.map((service, index) => (
@@ -166,12 +223,13 @@ const CourierPage = () => {
                 <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
                   Contáctenos para obtener más información sobre nuestros servicios de envío y logística.
                 </p>
-                <a
-                  href="/contacto"
-                  className="inline-block px-8 py-4 bg-gradient-gold text-dark font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+                <Link
+                  to="/contacto"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-gold text-dark font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
                 >
                   Contáctenos Ahora
-                </a>
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
               </div>
             </motion.div>
           </div>
