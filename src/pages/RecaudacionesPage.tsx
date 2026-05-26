@@ -1,7 +1,6 @@
 import { Navbar } from "@/components/Navbar";
 import { Newsletter } from "@/components/Newsletter";
 import { Footer } from "@/components/Footer";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { motion } from "framer-motion";
 import { Receipt, Building2, CreditCard, ArrowRightLeft, CheckCircle2, Wallet, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -299,7 +298,6 @@ const RecaudacionesPage = () => {
         <Newsletter />
       </main>
       <Footer />
-      <WhatsAppButton />
     </div>
   );
 };

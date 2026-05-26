@@ -1,7 +1,6 @@
 import { Navbar } from "@/components/Navbar";
 import { Newsletter } from "@/components/Newsletter";
 import { Footer } from "@/components/Footer";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { CurrencyCalculator } from "@/components/CurrencyCalculator";
 import { motion } from "framer-motion";
 import { Banknote, TrendingUp, Shield, Globe, Clock, CheckCircle2, ArrowRight } from "lucide-react";
@@ -293,7 +292,6 @@ const CambioDivisasPage = () => {
         <Newsletter />
       </main>
       <Footer />
-      <WhatsAppButton />
     </div>
   );
 };

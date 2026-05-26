@@ -1,6 +1,5 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { motion } from "framer-motion";
 import { Banknote, Send, Info, ShoppingCart, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
@@ -282,7 +281,6 @@ const PedidosPage = () => {
         </section>
       </main>
       <Footer />
-      <WhatsAppButton />
     </div>
   );
 };

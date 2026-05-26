@@ -10,8 +10,6 @@ import { About } from "@/components/About";
 import { Contact } from "@/components/Contact";
 import { Newsletter } from "@/components/Newsletter";
 import { Footer } from "@/components/Footer";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
-
 const Index = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
@@ -29,7 +27,6 @@ const Index = () => {
         <Newsletter />
       </main>
       <Footer />
-      <WhatsAppButton />
     </div>
   );
 };

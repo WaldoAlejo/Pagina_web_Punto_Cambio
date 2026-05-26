@@ -2,8 +2,6 @@ import { Navbar } from "@/components/Navbar";
 import { Franchise } from "@/components/Franchise";
 import { Newsletter } from "@/components/Newsletter";
 import { Footer } from "@/components/Footer";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
-
 const FranchisePage = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
@@ -13,7 +11,6 @@ const FranchisePage = () => {
         <Newsletter />
       </main>
       <Footer />
-      <WhatsAppButton />
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import { Navbar } from "@/components/Navbar";
 import { Newsletter } from "@/components/Newsletter";
 import { Footer } from "@/components/Footer";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { motion } from "framer-motion";
 import { Send, Globe, Clock, Shield, DollarSign, MapPin, CheckCircle2, ArrowRight, Users } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -352,7 +351,6 @@ const WesternUnionPage = () => {
         <Newsletter />
       </main>
       <Footer />
-      <WhatsAppButton />
     </div>
   );
 };

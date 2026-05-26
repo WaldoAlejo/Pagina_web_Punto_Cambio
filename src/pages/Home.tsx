@@ -8,7 +8,6 @@ import { CurrencyCalculator } from "@/components/CurrencyCalculator";
 import { TrustSection } from "@/components/TrustSection";
 import { Newsletter } from "@/components/Newsletter";
 import { Footer } from "@/components/Footer";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
 const Home = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden pb-safe-bottom">
@@ -24,7 +23,6 @@ const Home = () => {
         <Newsletter />
       </main>
       <Footer />
-      <WhatsAppButton />
     </div>
   );
 };
