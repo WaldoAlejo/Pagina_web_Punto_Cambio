@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Calculator, Send, Coins, Building2 } from "lucide-react";
+import { Calculator, Send, Coins, Building2, ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const actions = [
@@ -9,6 +9,13 @@ const actions = [
     description: "Calcula el tipo de cambio",
     href: "/calculadora",
     color: "from-primary to-gold-dark",
+  },
+  {
+    icon: ShoppingCart,
+    title: "Pedidos",
+    description: "Reserve sus divisas ahora",
+    href: "/pedidos",
+    color: "from-gold-dark to-primary",
   },
   {
     icon: Send,
@@ -38,7 +45,7 @@ export const QuickActions = () => {
     <section className="py-8 md:py-10 bg-gradient-to-b from-white to-secondary/30">
       <div className="container px-4 sm:px-6">
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

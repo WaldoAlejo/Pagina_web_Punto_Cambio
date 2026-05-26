@@ -12,6 +12,14 @@ dist
 dist-ssr
 *.local
 
+# Variables de entorno (credenciales — nunca commitear)
+.env
+.env.local
+.env.production
+
+# Scripts de base de datos (contienen passwords)
+scripts/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

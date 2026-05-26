@@ -4,9 +4,21 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Safe areas (notch / home indicator / WebView) ── */
+:root {
+  --sat: env(safe-area-inset-top, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+  /* Mobile bottom nav height (64px) + home indicator */
+  --mobile-nav-height: calc(4rem + var(--sab));
+}
+
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  /* Honor WebView safe areas */
+  padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) 0 env(safe-area-inset-left, 0px);
 }
 
 body {
@@ -250,5 +262,21 @@ a {
   @keyframes shimmer {
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
+  }
+
+  /* Safe area utilities para WebView / PWA */
+  .pt-safe-top    { padding-top: env(safe-area-inset-top, 0px); }
+  .pb-safe-bottom { padding-bottom: var(--mobile-nav-height, 4rem); }
+  .pb-safe        { padding-bottom: env(safe-area-inset-bottom, 0px); }
+
+  /* En desktop no necesitamos el padding del nav móvil */
+  @media (min-width: 1024px) {
+    .pb-safe-bottom { padding-bottom: 0; }
+  }
+
+  /* Touch target mínimo iOS/Android = 44px */
+  .touch-target {
+    min-width: 44px;
+    min-height: 44px;
   }
 }

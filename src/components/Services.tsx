@@ -6,7 +6,8 @@ import {
   Briefcase, 
   Package, 
   Receipt,
-  ArrowRight
+  ArrowRight,
+  ShoppingCart
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -18,6 +19,13 @@ const services = [
     description: "Las mejores tasas del mercado para compra y venta de divisas internacionales.",
     color: "from-primary to-gold-dark",
     link: "/cambio-divisas",
+  },
+  {
+    icon: ShoppingCart,
+    title: "Pedidos de Divisas",
+    description: "Solicite la divisa que necesita de forma anticipada y coordine su retiro.",
+    color: "from-gold-dark to-primary",
+    link: "/pedidos",
   },
   {
     icon: Send,

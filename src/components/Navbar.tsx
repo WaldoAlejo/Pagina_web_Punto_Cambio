@@ -8,6 +8,7 @@ import logo from "@/assets/logo-190x70.png";
 const navItems = [
   { name: "Inicio", href: "/" },
   { name: "Servicios", href: "/servicios" },
+  { name: "Pedidos", href: "/pedidos" },
   { name: "Ubicaciones", href: "/ubicaciones" },
   { name: "Franquicias", href: "/franquicias" },
   { name: "Nosotros", href: "/nosotros" },
@@ -34,7 +35,7 @@ export const Navbar = () => {
 
   return (
     <>
-      {/* Top bar */}
+      {/* Top bar - desktop only */}
       <div className="hidden lg:block bg-gradient-to-r from-dark via-dark-lighter to-dark text-white/90 text-sm py-3 border-b border-primary/20">
         <div className="container flex justify-between items-center">
           <div className="flex items-center gap-8">
@@ -59,7 +60,7 @@ export const Navbar = () => {
 
       {/* Main navbar */}
       <motion.nav
-        className={`sticky top-0 z-50 transition-all duration-300 border-b ${
+        className={`sticky top-0 z-50 transition-all duration-300 border-b pt-safe-top ${
           scrolled
             ? "bg-white shadow-xl border-border/50"
             : "bg-white/98 backdrop-blur-md border-transparent"
@@ -68,7 +69,7 @@ export const Navbar = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="container px-4 sm:px-6 flex items-center justify-between h-16 md:h-20">
+        <div className="container px-4 sm:px-6 flex items-center justify-between h-14 sm:h-16 md:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center group">
             <img 

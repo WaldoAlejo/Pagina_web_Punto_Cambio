@@ -4,6 +4,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { MobileBottomNav } from "@/components/MobileBottomNav";
+import { ChatBot } from "@/components/ChatBot";
 import Home from "./pages/Home";
 import ServicesPage from "./pages/ServicesPage";
 import CalculatorPage from "./pages/CalculatorPage";
@@ -16,6 +18,7 @@ import OroPage from "./pages/OroPage";
 import RecaudacionesPage from "./pages/RecaudacionesPage";
 import CambioDivisasPage from "./pages/CambioDivisasPage";
 import WesternUnionPage from "./pages/WesternUnionPage";
+import PedidosPage from "./pages/PedidosPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +30,8 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
+        <MobileBottomNav />
+        <ChatBot />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/servicios" element={<ServicesPage />} />
@@ -40,6 +45,7 @@ const App = () => (
           <Route path="/recaudaciones" element={<RecaudacionesPage />} />
           <Route path="/cambio-divisas" element={<CambioDivisasPage />} />
           <Route path="/western-union" element={<WesternUnionPage />} />
+          <Route path="/pedidos" element={<PedidosPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
