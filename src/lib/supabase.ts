@@ -4,7 +4,7 @@
  * Apunta VITE_API_URL a tu instancia PostgREST: http://<GCP_IP>:3000
  */
 
-import type { Branch, FAQ, SiteConfig } from "./types";
+import type { Branch, FAQ, SiteConfig, ExchangeRateOverride } from "./types";
 
 const API_URL = (import.meta.env.VITE_API_URL as string | undefined) ?? "";
 
@@ -61,6 +61,18 @@ export async function fetchSiteConfig(): Promise<Record<string, string>> {
     return Object.fromEntries(rows.map((r) => [r.key, r.value]));
   } catch {
     return STATIC_CONFIG;
+  }
+}
+
+// ── Exchange rate overrides ───────────────────────────────────────────────────
+
+export async function fetchExchangeOverrides(): Promise<ExchangeRateOverride[]> {
+  try {
+    return await pgFetch<ExchangeRateOverride>("/exchange_rate_overrides", {
+      is_active: "eq.true",
+    });
+  } catch {
+    return [];
   }
 }
 
@@ -163,4 +175,7 @@ export const STATIC_CONFIG: Record<string, string> = {
   address_main: "C.C. Plaza del Valle, San Rafael, Valle de los Chillos",
   exchange_spread_buy: "0.015",
   exchange_spread_sell: "0.015",
+  exchange_active_currencies: "EUR,GBP,COP,BRL,ARS,BOB,MXN,AUD,PEN,CAD",
+  exchange_refresh_minutes: "30",
+  chatbot_welcome: "¡Hola! 👋 Soy el asistente de **Punto Cambio**. ¿En qué puedo ayudarte?",
 };

@@ -6,6 +6,7 @@ import {
 import { useFAQs } from "@/hooks/useFAQs";
 import { useBranches, getNearestBranch } from "@/hooks/useBranches";
 import { useExchangeRates } from "@/hooks/useExchangeRates";
+import { useSiteConfig } from "@/hooks/useSiteConfig";
 import type { FAQ } from "@/lib/types";
 
 type MessageRole = "bot" | "user";
@@ -24,9 +25,10 @@ interface Message {
   timestamp: Date;
 }
 
-const WHATSAPP_NUMBER = "593995710648";
-const PHONE_NUMBER = "+593 2 286 7144";
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hola, necesito información sobre cambio de divisas")}`;
+const DEFAULT_WHATSAPP = "593995710648";
+const DEFAULT_PHONE    = "+593 2 286 7144";
+const DEFAULT_WELCOME  = "¡Hola! 👋 Soy el asistente de **Punto Cambio**. ¿En qué puedo ayudarte?";
+const WA_TEXT = encodeURIComponent("Hola, necesito información sobre cambio de divisas");
 
 const formatRate = (r: number, code: string) =>
   ["COP", "ARS"].includes(code) ? r.toFixed(2) : r.toFixed(4);
@@ -51,6 +53,12 @@ export const ChatBot = () => {
   const { data: faqs = [] } = useFAQs();
   const { data: branches = [] } = useBranches();
   const { data: rates } = useExchangeRates();
+  const { data: siteConfig } = useSiteConfig();
+
+  const WHATSAPP_NUMBER = siteConfig?.["whatsapp"]        ?? DEFAULT_WHATSAPP;
+  const PHONE_NUMBER    = siteConfig?.["phone_1"]         ?? DEFAULT_PHONE;
+  const WELCOME_MSG     = siteConfig?.["chatbot_welcome"] ?? DEFAULT_WELCOME;
+  const WHATSAPP_URL    = `https://wa.me/${WHATSAPP_NUMBER}?text=${WA_TEXT}`;
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -62,10 +70,7 @@ export const ChatBot = () => {
 
   useEffect(() => {
     if (chatOpen && messages.length === 0) {
-      addBotMessage(
-        "¡Hola! 👋 Soy el asistente de **Punto Cambio**. ¿En qué puedo ayudarte?",
-        MAIN_MENU_REPLIES,
-      );
+      addBotMessage(WELCOME_MSG, MAIN_MENU_REPLIES);
     }
   }, [chatOpen]);
 
