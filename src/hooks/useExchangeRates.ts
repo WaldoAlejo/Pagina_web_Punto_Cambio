@@ -4,6 +4,7 @@ import type { CurrencyRate } from "@/lib/types";
 
 // Catálogo completo de monedas soportadas — agregar más aquí si hace falta
 const CURRENCY_META: Record<string, { name: string; flag: string }> = {
+  USD: { name: "Dólar Americano",   flag: "🇺🇸" },
   EUR: { name: "Euro",               flag: "🇪🇺" },
   GBP: { name: "Libra Esterlina",   flag: "🇬🇧" },
   COP: { name: "Peso Colombiano",   flag: "🇨🇴" },
@@ -19,7 +20,7 @@ const CURRENCY_META: Record<string, { name: string; flag: string }> = {
   CNY: { name: "Yuan Chino",        flag: "🇨🇳" },
 };
 
-const DEFAULT_CURRENCIES = "EUR,GBP,COP,BRL,ARS,BOB,MXN,AUD,PEN,CAD";
+const DEFAULT_CURRENCIES = "USD,EUR,GBP,COP,BRL,ARS,BOB,MXN,AUD,PEN,CAD";
 const DEFAULT_BUY_SPREAD  = 0.015;
 const DEFAULT_SELL_SPREAD = 0.015;
 
