@@ -1,21 +1,98 @@
-import { useState } from "react";
+import { useState, useRef, useMemo, useCallback } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Clock, Phone, Navigation, MessageCircle } from "lucide-react";
+import { MapPin, Clock, Phone, Navigation, MessageCircle, Crosshair } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useBranches } from "@/hooks/useBranches";
 import type { Branch } from "@/lib/types";
 
-const QUITO_MAP =
-  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d255280.8!2d-78.6312!3d-0.2299!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d59a4002427c9f%3A0x44b991e158ef5572!2sQuito%2C%20Ecuador!5e0!3m2!1ses!2sec!4v1704067200000";
+/* Leaflet imports (lazy to avoid SSR issues if any) */
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import L from "leaflet";
 
+/* ── Custom gold marker ───────────────────────────────────────── */
+const goldIconHtml = `
+  <div style="
+    width:32px;height:32px;
+    background:linear-gradient(135deg,#D4AF37 0%,#B8960C 100%);
+    border:3px solid #fff;
+    border-radius:50% 50% 50% 0;
+    transform:rotate(-45deg);
+    box-shadow:0 3px 8px rgba(0,0,0,0.35);
+    display:flex;align-items:center;justify-content:center;
+  ">
+    <span style="transform:rotate(45deg);font-size:14px;color:#1a1a1a;font-weight:700;">P</span>
+  </div>
+  <div style="
+    width:0;height:0;
+    border-left:6px solid transparent;
+    border-right:6px solid transparent;
+    border-top:8px solid #B8960C;
+    margin:-3px auto 0;
+    filter:drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+  "></div>
+`;
+
+const goldIcon = L.divIcon({
+  className: "custom-gold-marker",
+  html: goldIconHtml,
+  iconSize: [32, 40],
+  iconAnchor: [16, 40],
+  popupAnchor: [0, -36],
+});
+
+/* ── Map fly-to helper ────────────────────────────────────────── */
+function FlyToBranch({ target }: { target: [number, number] | null }) {
+  const map = useMap();
+  if (target) {
+    map.flyTo(target, 16, { duration: 1.5 });
+  }
+  return null;
+}
+
+function ResetViewButton({ onReset }: { onReset: () => void }) {
+  const map = useMap();
+  return (
+    <button
+      onClick={() => {
+        map.flyTo([-1.2, -78.5], 7, { duration: 1.5 });
+        onReset();
+      }}
+      className="absolute top-3 right-3 z-[400] bg-white rounded-lg px-3 py-2 shadow-lg text-xs font-medium text-foreground hover:bg-primary hover:text-dark transition-colors flex items-center gap-1.5 border border-border/40"
+      title="Ver todo Ecuador"
+    >
+      <Crosshair className="w-3.5 h-3.5" />
+      Ver todo
+    </button>
+  );
+}
+
+/* ── Main component ───────────────────────────────────────────── */
 export const LocationsMap = () => {
   const { data: locations = [], isLoading } = useBranches();
-  const [activeMapUrl, setActiveMapUrl] = useState<string>(QUITO_MAP);
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const [flyTarget, setFlyTarget] = useState<[number, number] | null>(null);
+  const markersRef = useRef<Record<string, L.Marker>>({});
 
-  const handleSelectBranch = (branch: Branch) => {
-    if (branch.map_embed_url) setActiveMapUrl(branch.map_embed_url);
-  };
+  const activeLocations = useMemo(
+    () => locations.filter((l) => l.is_active),
+    [locations],
+  );
+
+  const handleSelectBranch = useCallback((branch: Branch) => {
+    setActiveId(branch.id);
+    setFlyTarget([branch.lat, branch.lng]);
+    // Also open popup after fly animation
+    setTimeout(() => {
+      const m = markersRef.current[branch.id];
+      if (m) m.openPopup();
+    }, 1600);
+  }, []);
+
+  const handleReset = useCallback(() => {
+    setActiveId(null);
+    setFlyTarget(null);
+  }, []);
 
   return (
     <section className="bg-secondary/30 py-8 md:py-12 lg:py-16">
@@ -36,31 +113,83 @@ export const LocationsMap = () => {
             <span className="text-gradient-gold"> Atención</span>
           </h2>
           <p className="text-muted-foreground text-base md:text-lg">
-            Visítenos en cualquiera de nuestras sucursales a nivel nacional.
+            Visítenos en cualquiera de nuestras {activeLocations.length} sucursales a nivel nacional.
             Estamos cerca de usted para servirle.
           </p>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-          {/* Mapa */}
+          {/* Mapa Leaflet */}
           <motion.div
-            className="order-2 lg:order-1 rounded-2xl overflow-hidden shadow-elevated bg-card h-[320px] sm:h-[400px] lg:h-[600px]"
+            className="order-2 lg:order-1 rounded-2xl overflow-hidden shadow-elevated bg-card h-[320px] sm:h-[400px] lg:h-[600px] relative"
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <iframe
-              src={activeMapUrl}
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Ubicaciones Punto Cambio"
-              className="w-full h-full"
-            />
+            <MapContainer
+              center={[-1.2, -78.5]}
+              zoom={7}
+              scrollWheelZoom={true}
+              style={{ height: "100%", width: "100%" }}
+              zoomControl={false}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              {activeLocations.map((branch) => (
+                <Marker
+                  key={branch.id}
+                  position={[branch.lat, branch.lng]}
+                  icon={goldIcon}
+                  ref={(ref) => {
+                    if (ref) markersRef.current[branch.id] = ref;
+                  }}
+                  eventHandlers={{
+                    click: () => setActiveId(branch.id),
+                  }}
+                >
+                  <Popup className="punto-cambio-popup">
+                    <div className="min-w-[200px]">
+                      <h4 className="font-display font-bold text-sm text-foreground mb-1">
+                        {branch.name}
+                      </h4>
+                      <p className="text-xs text-muted-foreground mb-1">
+                        {branch.address}
+                      </p>
+                      <p className="text-xs text-muted-foreground mb-2">
+                        {branch.city}
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        <a
+                          href={`https://www.google.com/maps/dir/?api=1&destination=${branch.lat},${branch.lng}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-[11px] bg-primary/10 text-primary px-2 py-1 rounded-md hover:bg-primary hover:text-dark transition-colors"
+                        >
+                          <Navigation className="w-3 h-3" />
+                          Cómo llegar
+                        </a>
+                        {branch.whatsapp && (
+                          <a
+                            href={`https://wa.me/${branch.whatsapp.replace(/\D/g, "")}?text=Hola%2C%20quiero%20informaci%C3%B3n`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-[11px] bg-green-50 text-green-700 px-2 py-1 rounded-md hover:bg-green-500 hover:text-white transition-colors"
+                          >
+                            <MessageCircle className="w-3 h-3" />
+                            WhatsApp
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </Popup>
+                </Marker>
+              ))}
+              <FlyToBranch target={flyTarget} />
+              <ResetViewButton onReset={handleReset} />
+            </MapContainer>
           </motion.div>
 
           {/* Lista de sucursales */}
@@ -78,18 +207,26 @@ export const LocationsMap = () => {
             )}
 
             <div className="max-h-[560px] overflow-y-auto pr-1 space-y-3 custom-scrollbar">
-              {locations.filter((l) => l.is_active).map((location, index) => (
+              {activeLocations.map((location, index) => (
                 <motion.button
                   key={location.id}
-                  className="w-full text-left bg-card rounded-xl p-4 sm:p-5 shadow-card border border-border/50 hover:shadow-elevated hover:border-primary/30 transition-all duration-300 hover:-translate-y-0.5"
+                  className={`w-full text-left rounded-xl p-4 sm:p-5 shadow-card border transition-all duration-300 hover:-translate-y-0.5 ${
+                    activeId === location.id
+                      ? "bg-primary/5 border-primary shadow-elevated"
+                      : "bg-card border-border/50 hover:shadow-elevated hover:border-primary/30"
+                  }`}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.08, duration: 0.4 }}
+                  transition={{ delay: index * 0.05, duration: 0.4 }}
                   onClick={() => handleSelectBranch(location)}
                 >
                   <div className="flex items-start gap-3 sm:gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-gold flex items-center justify-center flex-shrink-0 shadow-gold">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 shadow-gold ${
+                      activeId === location.id
+                        ? "bg-gradient-gold"
+                        : "bg-gradient-gold/80"
+                    }`}>
                       <MapPin className="w-5 h-5 text-dark" />
                     </div>
 
