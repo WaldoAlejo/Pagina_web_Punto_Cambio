@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { CurrencySelect } from "@/components/CurrencySelect";
 import { useExchangeRates } from "@/hooks/useExchangeRates";
+import { useCurrencies } from "@/hooks/useCurrencies";
 
 const FALLBACK_RATES: Record<string, number> = {
   USD: 1,
@@ -23,45 +24,34 @@ const FALLBACK_RATES: Record<string, number> = {
   CNY: 0.14,
 };
 
-const CURRENCY_META: Record<string, { name: string; flag: string }> = {
-  USD: { name: "Dólar Americano", flag: "🇺🇸" },
-  EUR: { name: "Euro", flag: "🇪🇺" },
-  GBP: { name: "Libra Esterlina", flag: "🇬🇧" },
-  COP: { name: "Peso Colombiano", flag: "🇨🇴" },
-  BRL: { name: "Real Brasileño", flag: "🇧🇷" },
-  MXN: { name: "Peso Mexicano", flag: "🇲🇽" },
-  ARS: { name: "Peso Argentino", flag: "🇦🇷" },
-  BOB: { name: "Boliviano", flag: "🇧🇴" },
-  PEN: { name: "Sol Peruano", flag: "🇵🇪" },
-  AUD: { name: "Dólar Australiano", flag: "🇦🇺" },
-  CAD: { name: "Dólar Canadiense", flag: "🇨🇦" },
-  CHF: { name: "Franco Suizo", flag: "🇨🇭" },
-  JPY: { name: "Yen Japonés", flag: "🇯🇵" },
-  CNY: { name: "Yuan Chino", flag: "🇨🇳" },
-};
-
 export const CurrencyCalculator = () => {
   const [amount, setAmount] = useState("1000");
   const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("EUR");
 
-  const { data: rates, isLoading, isError } = useExchangeRates();
+  const { data: rates, isLoading: ratesLoading, isError } = useExchangeRates();
+  const { data: currenciesMeta, isLoading: currenciesLoading } = useCurrencies();
 
-  /* Construir catálogo de monedas desde tasas reales + fallback */
+  const isLoading = ratesLoading || currenciesLoading;
+
+  /* Catálogo de monedas: usa metadata de la API + tasas del hook o fallback */
   const currencies = useMemo(() => {
     const codes = rates && rates.length > 0
       ? rates.map((r) => r.code)
       : Object.keys(FALLBACK_RATES);
 
     return codes
-      .map((code) => ({
-        code,
-        name: CURRENCY_META[code]?.name ?? code,
-        flag: CURRENCY_META[code]?.flag ?? "🏳️",
-        rate: rates?.find((r) => r.code === code)?.midRate ?? FALLBACK_RATES[code] ?? 1,
-      }))
+      .map((code) => {
+        const meta = currenciesMeta?.find((c) => c.code === code);
+        return {
+          code,
+          name: meta?.name ?? code,
+          flag: meta?.flag ?? "🏳️",
+          rate: rates?.find((r) => r.code === code)?.midRate ?? FALLBACK_RATES[code] ?? 1,
+        };
+      })
       .sort((a, b) => a.name.localeCompare(b.name));
-  }, [rates]);
+  }, [rates, currenciesMeta]);
 
   const fromRate = currencies.find((c) => c.code === fromCurrency)?.rate || 1;
   const toRate   = currencies.find((c) => c.code === toCurrency)?.rate || 1;

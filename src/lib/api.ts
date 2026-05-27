@@ -10,7 +10,7 @@
  *   database/001_schema.sql      → estructura de tablas
  */
 
-import type { Branch, FAQ, SiteConfig, ExchangeRateOverride } from "./types";
+import type { Branch, FAQ, SiteConfig, ExchangeRateOverride, CurrencyMeta } from "./types";
 
 const API_URL = (import.meta.env.VITE_API_URL as string | undefined) ?? "";
 
@@ -56,6 +56,15 @@ export async function fetchFAQs(): Promise<FAQ[]> {
 export async function fetchSiteConfig(): Promise<Record<string, string>> {
   const rows = await pgFetch<SiteConfig>("/site_config");
   return Object.fromEntries(rows.map((r) => [r.key, r.value]));
+}
+
+// ── Currencies ────────────────────────────────────────────────────────────────
+
+export async function fetchCurrencies(): Promise<CurrencyMeta[]> {
+  return await pgFetch<CurrencyMeta>("/currencies", {
+    is_active: "eq.true",
+    order: "order_index.asc",
+  });
 }
 
 // ── Exchange rate overrides ───────────────────────────────────────────────────

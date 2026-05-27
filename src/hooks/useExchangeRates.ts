@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchSiteConfig, fetchExchangeOverrides } from "@/lib/api";
+import { fetchSiteConfig, fetchExchangeOverrides, fetchCurrencies } from "@/lib/api";
 import type { CurrencyRate } from "@/lib/types";
 
-// Catálogo completo de monedas soportadas — agregar más aquí si hace falta
-const CURRENCY_META: Record<string, { name: string; flag: string }> = {
+/* Fallback local — se usa solo si la API de monedas no responde */
+const CURRENCY_META_FALLBACK: Record<string, { name: string; flag: string }> = {
   USD: { name: "Dólar Americano",   flag: "🇺🇸" },
   EUR: { name: "Euro",               flag: "🇪🇺" },
   GBP: { name: "Libra Esterlina",   flag: "🇬🇧" },
@@ -30,14 +30,14 @@ interface LiveRatesResponse {
 }
 
 async function fetchRatesComplete(): Promise<CurrencyRate[]> {
-  // Fetch en paralelo: tasas en vivo + config de BD + overrides por moneda
-  const [liveResult, configResult, overridesResult] = await Promise.allSettled([
-    // Intentar primero exchangerate-api, fallback a open.er-api (ambas gratuitas)
+  // Fetch en paralelo: tasas en vivo + config de BD + overrides + catálogo de monedas
+  const [liveResult, configResult, overridesResult, currenciesResult] = await Promise.allSettled([
     fetch("https://open.er-api.com/v6/latest/USD")
       .then((r) => (r.ok ? r.json() : Promise.reject()))
       .catch(() => fetch("https://v6.exchangerate-api.com/v6/latest/USD").then((r) => r.json())),
     fetchSiteConfig(),
     fetchExchangeOverrides(),
+    fetchCurrencies(),
   ]);
 
   // Tasas en vivo — si falla todo, lanzar error para que React Query maneje el retry
@@ -65,11 +65,19 @@ async function fetchRatesComplete(): Promise<CurrencyRate[]> {
     overrides.filter((o) => o.is_active).map((o) => [o.currency_code, o]),
   );
 
+  // Catálogo de monedas desde BD (con fallback local)
+  const currenciesFromApi =
+    currenciesResult.status === "fulfilled" ? currenciesResult.value : [];
+  const metaMap: Record<string, { name: string; flag: string }> =
+    currenciesFromApi.length > 0
+      ? Object.fromEntries(currenciesFromApi.map((c) => [c.code, { name: c.name, flag: c.flag }]))
+      : CURRENCY_META_FALLBACK;
+
   // Construir array de tasas
   return activeCurrencies
-    .filter((code) => CURRENCY_META[code] && live.rates[code])
+    .filter((code) => metaMap[code] && live.rates[code])
     .map((code) => {
-      const meta     = CURRENCY_META[code];
+      const meta     = metaMap[code];
       const mid      = live.rates[code];
       const override = overrideMap[code];
 

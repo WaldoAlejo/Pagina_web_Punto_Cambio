@@ -19,6 +19,7 @@
 | `branches` | `GET /branches` | Sucursales / puntos de atención |
 | `faqs` | `GET /faqs` | Preguntas frecuentes del chatbot |
 | `site_config` | `GET /site_config` | Configuración clave-valor del sitio |
+| `currencies` | `GET /currencies` | Catálogo de monedas (nombre, bandera, orden) |
 | `exchange_rate_overrides` | `GET /exchange_rate_overrides` | Spreads personalizados por moneda |
 
 ### Estructura completa
@@ -113,6 +114,7 @@ PostgreSQL (GCP) → PostgREST (Cloud Run) → API REST → src/lib/api.ts → H
 | `useBranches()` | `fetchBranches()` | Sucursales |
 | `useFAQs()` | `fetchFAQs()` | FAQs |
 | `useSiteConfig()` | `fetchSiteConfig()` | Configuración |
+| `useCurrencies()` | `fetchCurrencies()` | Catálogo de monedas |
 | `useExchangeRates()` | `fetchExchangeOverrides()` + API externa | Tasas |
 
 ---
@@ -134,3 +136,4 @@ VITE_API_URL=https://postgrest-punto-cambio-72tnrtplza-uc.a.run.app
 - **No uses Supabase.** Este proyecto usa PostgreSQL puro en GCP + PostgREST. No hay relación con Supabase.
 - El rol `web_anon` en PostgreSQL solo tiene permisos `SELECT`. Para escritura se usa el usuario `postgres` directamente (scripts) o se debe configurar autenticación JWT en PostgREST.
 - Las tasas de cambio en vivo se obtienen de `open.er-api.com` y se combinan con los spreads de `exchange_rate_overrides`.
+- El catálogo de monedas (nombre, bandera, orden) se lee desde la tabla `currencies`. Si la API no responde, el frontend usa un fallback local para mantener la calculadora funcional.

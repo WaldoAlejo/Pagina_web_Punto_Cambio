@@ -36,6 +36,14 @@ export interface ExchangeRateOverride {
   is_active: boolean;
 }
 
+export interface CurrencyMeta {
+  code: string;
+  name: string;
+  flag: string;
+  is_active: boolean;
+  order_index: number;
+}
+
 export interface CurrencyRate {
   code: string;
   name: string;

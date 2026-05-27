@@ -139,6 +139,24 @@ INSERT INTO branches (name, address, city, lat, lng, phone, whatsapp, hours, hou
 )
 ON CONFLICT DO NOTHING;
 
+-- ── Monedas ────────────────────────────────────────────────────
+INSERT INTO currencies (code, name, flag, is_active, order_index) VALUES
+  ('USD', 'Dólar Americano',   '🇺🇸', true, 1),
+  ('EUR', 'Euro',               '🇪🇺', true, 2),
+  ('GBP', 'Libra Esterlina',   '🇬🇧', true, 3),
+  ('COP', 'Peso Colombiano',   '🇨🇴', true, 4),
+  ('BRL', 'Real Brasileño',    '🇧🇷', true, 5),
+  ('ARS', 'Peso Argentino',    '🇦🇷', true, 6),
+  ('BOB', 'Boliviano',         '🇧🇴', true, 7),
+  ('MXN', 'Peso Mexicano',     '🇲🇽', true, 8),
+  ('AUD', 'Dólar Australiano', '🇦🇺', true, 9),
+  ('PEN', 'Sol Peruano',       '🇵🇪', true, 10),
+  ('CAD', 'Dólar Canadiense',  '🇨🇦', true, 11),
+  ('CHF', 'Franco Suizo',      '🇨🇭', true, 12),
+  ('JPY', 'Yen Japonés',       '🇯🇵', true, 13),
+  ('CNY', 'Yuan Chino',        '🇨🇳', true, 14)
+ON CONFLICT (code) DO NOTHING;
+
 -- ── Configuración del sitio ────────────────────────────────────
 INSERT INTO site_config (key, value, description) VALUES
   ('phone_1',             '+593 99 571 0648',                         'Teléfono celular principal'),

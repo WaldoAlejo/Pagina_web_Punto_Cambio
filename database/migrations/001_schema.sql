@@ -59,6 +59,16 @@ CREATE TABLE IF NOT EXISTS faqs (
   created_at  TIMESTAMPTZ DEFAULT now()
 );
 
+-- ── Monedas disponibles ────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS currencies (
+  code      TEXT        PRIMARY KEY,
+  name      TEXT        NOT NULL,
+  flag      TEXT        NOT NULL,
+  is_active BOOLEAN     DEFAULT true,
+  order_index INTEGER   DEFAULT 0,
+  updated_at TIMESTAMPTZ DEFAULT now()
+);
+
 -- ── Overrides de spreads por moneda ───────────────────────────
 CREATE TABLE IF NOT EXISTS exchange_rate_overrides (
   currency_code TEXT  PRIMARY KEY,
@@ -73,6 +83,7 @@ GRANT USAGE ON SCHEMA public TO web_anon;
 GRANT SELECT ON branches                TO web_anon;
 GRANT SELECT ON site_config             TO web_anon;
 GRANT SELECT ON faqs                    TO web_anon;
+GRANT SELECT ON currencies              TO web_anon;
 GRANT SELECT ON exchange_rate_overrides TO web_anon;
 
 -- ── Trigger: auto-update de updated_at ────────────────────────
@@ -89,6 +100,11 @@ CREATE TRIGGER branches_updated_at
 DROP TRIGGER IF EXISTS site_config_updated_at ON site_config;
 CREATE TRIGGER site_config_updated_at
   BEFORE UPDATE ON site_config
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+
+DROP TRIGGER IF EXISTS currencies_updated_at ON currencies;
+CREATE TRIGGER currencies_updated_at
+  BEFORE UPDATE ON currencies
   FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 
 DROP TRIGGER IF EXISTS exchange_rate_overrides_updated_at ON exchange_rate_overrides;
