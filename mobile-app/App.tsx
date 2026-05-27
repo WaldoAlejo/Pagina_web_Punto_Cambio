@@ -13,7 +13,7 @@ import Constants from "expo-constants";
 import * as SplashScreen from "expo-splash-screen";
 
 // La URL de producción de la web app
-const WEB_APP_URL = "https://casasdecambios.com";
+const WEB_APP_URL = "https://pagina-web-punto-cambio.vercel.app";
 
 // Para desarrollo local usar:
 // const WEB_APP_URL = "http://10.0.2.2:5173"; // Android emulator
