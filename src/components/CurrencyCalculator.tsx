@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowRightLeft, TrendingUp, Clock, BadgeCheck, AlertCircle } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { CurrencySelect } from "@/components/CurrencySelect";
 import { useExchangeRates } from "@/hooks/useExchangeRates";
 
 const FALLBACK_RATES: Record<string, number> = {
@@ -148,18 +149,13 @@ export const CurrencyCalculator = () => {
                   placeholder="0.00"
                   disabled={isLoading}
                 />
-                <select
+                <CurrencySelect
+                  currencies={currencies}
                   value={fromCurrency}
-                  onChange={(e) => setFromCurrency(e.target.value)}
-                  className="w-full sm:w-36 h-11 sm:h-12 rounded-lg border border-input bg-background px-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary"
+                  onChange={setFromCurrency}
                   disabled={isLoading}
-                >
-                  {currencies.map((currency) => (
-                    <option key={currency.code} value={currency.code}>
-                      {currency.flag} {currency.code}
-                    </option>
-                  ))}
-                </select>
+                  placeholder="Buscar moneda que envía…"
+                />
               </div>
             </div>
 
@@ -188,18 +184,13 @@ export const CurrencyCalculator = () => {
                     {convertedAmount.toLocaleString("es-EC", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </span>
                 </div>
-                <select
+                <CurrencySelect
+                  currencies={currencies}
                   value={toCurrency}
-                  onChange={(e) => setToCurrency(e.target.value)}
-                  className="w-full sm:w-36 h-11 sm:h-12 rounded-lg border border-input bg-background px-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary"
+                  onChange={setToCurrency}
                   disabled={isLoading}
-                >
-                  {currencies.map((currency) => (
-                    <option key={currency.code} value={currency.code}>
-                      {currency.flag} {currency.code}
-                    </option>
-                  ))}
-                </select>
+                  placeholder="Buscar moneda que recibe…"
+                />
               </div>
             </div>
 
