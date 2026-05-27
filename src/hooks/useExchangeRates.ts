@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchSiteConfig, fetchExchangeOverrides, STATIC_CONFIG } from "@/lib/supabase";
+import { fetchSiteConfig, fetchExchangeOverrides } from "@/lib/supabase";
 import type { CurrencyRate } from "@/lib/types";
 
 // Catálogo completo de monedas soportadas — agregar más aquí si hace falta
@@ -46,9 +46,9 @@ async function fetchRatesComplete(): Promise<CurrencyRate[]> {
     throw new Error("No se pudo obtener tasas del mercado");
   }
 
-  // Configuración desde BD (con fallback a STATIC_CONFIG)
+  // Configuración desde BD
   const config =
-    configResult.status === "fulfilled" ? configResult.value : STATIC_CONFIG;
+    configResult.status === "fulfilled" ? configResult.value : {};
 
   const activeCurrencies = (config["exchange_active_currencies"] ?? DEFAULT_CURRENCIES)
     .split(",")
