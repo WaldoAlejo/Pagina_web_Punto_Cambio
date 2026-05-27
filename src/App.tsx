@@ -19,6 +19,9 @@ import RecaudacionesPage from "./pages/RecaudacionesPage";
 import CambioDivisasPage from "./pages/CambioDivisasPage";
 import WesternUnionPage from "./pages/WesternUnionPage";
 import PedidosPage from "./pages/PedidosPage";
+import TermsPage from "./pages/TermsPage";
+import PrivacyPage from "./pages/PrivacyPage";
+import LegalPage from "./pages/LegalPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -46,6 +49,9 @@ const App = () => (
           <Route path="/cambio-divisas" element={<CambioDivisasPage />} />
           <Route path="/western-union" element={<WesternUnionPage />} />
           <Route path="/pedidos" element={<PedidosPage />} />
+          <Route path="/terminos" element={<TermsPage />} />
+          <Route path="/privacidad" element={<PrivacyPage />} />
+          <Route path="/legal" element={<LegalPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

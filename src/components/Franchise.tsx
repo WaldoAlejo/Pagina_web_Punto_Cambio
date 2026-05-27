@@ -146,7 +146,7 @@ export const Franchise = () => {
                 size="lg"
                 asChild
               >
-                <a href="mailto:franquicias@casasdecambios.com?subject=Solicitud de Información - Franquicia Punto Cambio">
+                <a href="mailto:franquicias@puntocambio.ec?subject=Solicitud de Información - Franquicia Punto Cambio">
                   Contactar por Email
                 </a>
               </Button>

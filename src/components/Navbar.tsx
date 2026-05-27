@@ -53,7 +53,7 @@ export const Navbar = () => {
             </span>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-gradient-gold font-semibold tracking-wide">Lun - Vie: 9:00 - 18:00 | Sáb: 9:00 - 14:00</span>
+            <span className="text-gradient-gold font-semibold tracking-wide">Lun - Sáb: 8:30 - 18:30</span>
           </div>
         </div>
       </div>

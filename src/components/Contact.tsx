@@ -10,7 +10,7 @@ const contactInfo = [
   {
     icon: MapPin,
     title: "Dirección",
-    details: ["Valle de los Chillos, San Rafael", "Centro Comercial Plaza del Valle"],
+    details: ["Valle de los Chillos, San Rafael", "Centro Comercial Plaza del Valle, Isla 2"],
   },
   {
     icon: Phone,
@@ -20,12 +20,12 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email",
-    details: ["info@casasdecambios.com", "franquicias@casasdecambios.com"],
+    details: ["info@puntocambio.ec", "franquicias@puntocambio.ec"],
   },
   {
     icon: Clock,
     title: "Horario",
-    details: ["Lunes a Viernes: 9:00 - 18:00", "Sábados: 9:00 - 14:00"],
+    details: ["Lunes a Sábado: 8:30 - 18:30", "Domingos y feriados: Cerrado"],
   },
 ];
 

@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   MessageCircle, X, Send, Bot, User, ArrowLeft, HelpCircle,
+  Headphones, MapPin, Calculator, Phone, Sparkles,
 } from "lucide-react";
 import { useFAQs } from "@/hooks/useFAQs";
 import { useBranches, getNearestBranch } from "@/hooks/useBranches";
@@ -27,8 +28,8 @@ interface Message {
 
 const DEFAULT_WHATSAPP = "593995710648";
 const DEFAULT_PHONE    = "+593 2 286 7144";
-const DEFAULT_WELCOME  = "¡Hola! 👋 Soy el asistente de **Punto Cambio**. ¿En qué puedo ayudarte?";
-const WA_TEXT = encodeURIComponent("Hola, necesito información sobre cambio de divisas");
+const DEFAULT_WELCOME  = "¡Hola! 👋 Soy el asistente de **Punto Cambio**. ¿En qué puedo ayudarte hoy?";
+const CHAT_STORAGE_KEY = "punto-cambio-chat";
 
 const formatRate = (r: number, code: string) =>
   ["COP", "ARS"].includes(code) ? r.toFixed(2) : r.toFixed(4);
@@ -41,10 +42,49 @@ const WhatsAppIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   </svg>
 );
 
+/* ── helpers ──────────────────────────────────────────────────── */
+
+function getHourGreeting(): string {
+  const h = new Date().getHours();
+  if (h < 12) return "Buenos días";
+  if (h < 18) return "Buenas tardes";
+  return "Buenas noches";
+}
+
+function loadChat(): Message[] | null {
+  try {
+    const raw = sessionStorage.getItem(CHAT_STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    return parsed.map((m: any) => ({
+      ...m,
+      timestamp: new Date(m.timestamp),
+      // quickReplies no se persisten (solo texto)
+      quickReplies: undefined,
+    }));
+  } catch {
+    return null;
+  }
+}
+
+function saveChat(msgs: Message[]) {
+  try {
+    const storable = msgs.map((m) => ({
+      id: m.id,
+      role: m.role,
+      text: typeof m.text === "string" ? m.text : "[mensaje]",
+      timestamp: m.timestamp.toISOString(),
+    }));
+    sessionStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(storable));
+  } catch { /* ignore */ }
+}
+
+/* ── component ────────────────────────────────────────────────── */
+
 export const ChatBot = () => {
   const [chatOpen, setChatOpen] = useState(false);
   const [speedDialOpen, setSpeedDialOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>(() => loadChat() ?? []);
   const [input, setInput] = useState("");
   const [isBotTyping, setIsBotTyping] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -58,7 +98,13 @@ export const ChatBot = () => {
   const WHATSAPP_NUMBER = siteConfig?.["whatsapp"]        ?? DEFAULT_WHATSAPP;
   const PHONE_NUMBER    = siteConfig?.["phone_1"]         ?? DEFAULT_PHONE;
   const WELCOME_MSG     = siteConfig?.["chatbot_welcome"] ?? DEFAULT_WELCOME;
+  const WA_TEXT = encodeURIComponent("Hola, necesito información sobre Punto Cambio");
   const WHATSAPP_URL    = `https://wa.me/${WHATSAPP_NUMBER}?text=${WA_TEXT}`;
+
+  /* Persistir conversación */
+  useEffect(() => {
+    saveChat(messages);
+  }, [messages]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -70,7 +116,8 @@ export const ChatBot = () => {
 
   useEffect(() => {
     if (chatOpen && messages.length === 0) {
-      addBotMessage(WELCOME_MSG, MAIN_MENU_REPLIES);
+      const greeting = `${getHourGreeting()}! 👋 Soy el asistente de **Punto Cambio**. ¿En qué puedo ayudarte hoy?`;
+      addBotMessage(greeting, MAIN_MENU_REPLIES);
     }
   }, [chatOpen]);
 
@@ -107,10 +154,11 @@ export const ChatBot = () => {
   };
 
   const MAIN_MENU_REPLIES: QuickReply[] = [
-    { label: "💱 Tasas de cambio",      action: "RATES"    },
-    { label: "📍 Puntos de atención",   action: "BRANCHES" },
-    { label: "❓ Preguntas frecuentes", action: "FAQS"     },
-    { label: "💬 Hablar por WhatsApp",  action: `WA:${WHATSAPP_NUMBER}` },
+    { label: "💱 Tasas de cambio",      action: "RATES",      icon: <Sparkles className="w-3 h-3" /> },
+    { label: "📍 Puntos de atención",   action: "BRANCHES",   icon: <MapPin className="w-3 h-3" /> },
+    { label: "🧮 Calculadora",          action: "GO_CALCULATOR", icon: <Calculator className="w-3 h-3" /> },
+    { label: "❓ Preguntas frecuentes", action: "FAQS",       icon: <HelpCircle className="w-3 h-3" /> },
+    { label: "👤 Hablar con humano",    action: `WA:${WHATSAPP_NUMBER}`, icon: <Headphones className="w-3 h-3" /> },
   ];
 
   const handleAction = useCallback(
@@ -145,9 +193,9 @@ export const ChatBot = () => {
         case "BRANCHES":
           addUserMessage("📍 Puntos de atención");
           addBotMessage(
-            "¿Quieres que encuentre el punto más cercano a tu ubicación?",
+            "Tenemos **12 puntos de atención** a nivel nacional. ¿Quieres que encuentre el más cercano a tu ubicación?",
             [
-              { label: "📡 Usar mi ubicación",  action: "LOCATE_ME"    },
+              { label: "📡 Usar mi ubicación",    action: "LOCATE_ME"    },
               { label: "🗺️ Ver todos los puntos", action: "ALL_BRANCHES" },
               BACK_TO_MENU,
             ],
@@ -176,6 +224,7 @@ export const ChatBot = () => {
                       nearest.whatsapp
                         ? { label: "💬 WhatsApp sucursal", action: `WA:${nearest.whatsapp}` }
                         : { label: "📞 Llamar", action: `CALL:${nearest.phone}` },
+                      { label: "📍 Ver otros puntos", action: "ALL_BRANCHES" },
                       BACK_TO_MENU,
                     ],
                     timestamp: new Date(),
@@ -188,11 +237,15 @@ export const ChatBot = () => {
                 );
               }
             },
-            () => {
+            (err) => {
               setIsBotTyping(false);
-              addBotMessage("No pude acceder a tu ubicación.", undefined, 200);
+              const reason = err.code === 1
+                ? "No tengo permiso para acceder a tu ubicación."
+                : "No pude acceder a tu ubicación en este momento.";
+              addBotMessage(`${reason}\n\nPuedo mostrarte la lista completa de puntos de atención.`, undefined, 200);
               setTimeout(() => handleAction("ALL_BRANCHES"), 900);
             },
+            { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 }
           );
           break;
 
@@ -233,11 +286,14 @@ export const ChatBot = () => {
         case "GO_CONTACT":
           window.location.href = "/contacto";
           break;
+        case "GO_FRANCHISE":
+          window.location.href = "/franquicias";
+          break;
 
         default: {
           if (action.startsWith("WA:")) {
             const num = action.replace("WA:", "").replace(/\D/g, "");
-            window.open(`https://wa.me/${num}?text=${encodeURIComponent("Hola, necesito información sobre cambio de divisas")}`, "_blank");
+            window.open(`https://wa.me/${num}?text=${encodeURIComponent("Hola, necesito información sobre Punto Cambio")}`, "_blank");
           } else if (action.startsWith("CALL:")) {
             window.location.href = `tel:${action.replace("CALL:", "")}`;
           } else if (action.startsWith("MAP:")) {
@@ -269,28 +325,55 @@ export const ChatBot = () => {
     addUserMessage(text);
 
     const lower = text.toLowerCase();
-    if (/cambio|tasa|divisa|moneda|euro|d.lar|libra/.test(lower)) {
+
+    /* Intenciones mejoradas con más cobertura */
+    if (/cambio|tasa|divisa|moneda|euro|d[óo]lar|libra|precio|cotizar|cotizaci/i.test(lower)) {
       handleAction("RATES");
-    } else if (/donde|ubica|punt|direcci|suc|cerca/.test(lower)) {
+    } else if (/donde|ubica|punt|direcci|suc|cerr|cerca|lugar|encuentr|mapa/i.test(lower)) {
       handleAction("BRANCHES");
-    } else if (/hor|abr|cierr|tiempo/.test(lower)) {
+    } else if (/hor|abr|cierr|tiempo|atenci/i.test(lower)) {
       const faq = faqs.find((f: FAQ) => f.category === "horarios");
       if (faq) handleAction(`FAQ:${faq.id}`); else handleAction("FAQS");
-    } else if (/oro|joya|vender/.test(lower)) {
+    } else if (/oro|joya|vender|comprar oro|lingote/i.test(lower)) {
       const faq = faqs.find((f: FAQ) => f.question.toLowerCase().includes("oro"));
-      if (faq) handleAction(`FAQ:${faq.id}`); else handleAction("FAQS");
-    } else if (/western|envio|envío|remesa|transfer/.test(lower)) {
+      if (faq) handleAction(`FAQ:${faq.id}`); else {
+        addBotMessage("Compramos oro en monedas, joyas y lingotes. Tasamos según el fixing internacional del día. ¿Te gustaría cotizar o saber más?", [WA_REPLY, BACK_TO_MENU], 400);
+      }
+    } else if (/western|env[ií]o|envio|remesa|transfer|giro|recibir dinero/i.test(lower)) {
       const faq = faqs.find((f: FAQ) => f.question.toLowerCase().includes("western"));
-      if (faq) handleAction(`FAQ:${faq.id}`); else handleAction("FAQS");
-    } else if (/pedido|reserva|anticip/.test(lower)) {
+      if (faq) handleAction(`FAQ:${faq.id}`); else {
+        addBotMessage("Somos agentes autorizados de Western Union. Puede enviar y recibir dinero a más de 200 países. ¿Necesitas información sobre tarifas o puntos de atención?", [WA_REPLY, BACK_TO_MENU], 400);
+      }
+    } else if (/pedido|reserva|anticip|apartar|reservar/i.test(lower)) {
       const faq = faqs.find((f: FAQ) => f.category === "pedidos");
       if (faq) handleAction(`FAQ:${faq.id}`); else handleAction("FAQS");
-    } else if (/hola|buenos|buenas/.test(lower)) {
-      addBotMessage("¡Hola! 😊 ¿En qué te puedo ayudar?", MAIN_MENU_REPLIES, 400);
-    } else if (/whatsapp|wsp|ws/.test(lower)) {
+    } else if (/courier|env[ií]o|paquete|dhl|documento/i.test(lower)) {
+      addBotMessage("Ofrecemos servicio de courier nacional e internacional con DHL. Documentos, carga liviana, carga masiva, fletes y valija empresarial. ¿Necesitas una cotización?", [WA_REPLY, { label: "📍 Punto más cercano", action: "BRANCHES" }, BACK_TO_MENU], 400);
+    } else if (/recaudaci|pago|dep[oó]sito|transferencia|banco/i.test(lower)) {
+      addBotMessage("Tenemos red inter-bancaria para depósitos, pagos de tarjetas, transferencias y cobros. Evite la congestión bancaria realizando sus transacciones cerca de su hogar.", [WA_REPLY, { label: "📍 Punto más cercano", action: "BRANCHES" }, BACK_TO_MENU], 400);
+    } else if (/franquici|agente|negocio|emprend|invert/i.test(lower)) {
+      addBotMessage("¡Únase a nuestra red de agencias Punto Cambio en Ecuador! Le ofrecemos capacitación, soporte operativo y una marca reconocida con más de 25 años de experiencia.", [
+        { label: "🌐 Más información", action: "GO_FRANCHISE" },
+        WA_REPLY,
+        BACK_TO_MENU,
+      ], 400);
+    } else if (/contact|tel[ée]fono|llamar|email|correo|escrib|hablar/i.test(lower)) {
+      addBotMessage(
+        `Puede contactarnos de las siguientes formas:\n\n📞 **Celular:** ${PHONE_NUMBER}\n📞 **Fijo:** ${siteConfig?.["phone_2"] ?? "+593 2 286 7144"}\n📧 **Email:** ${siteConfig?.["email"] ?? "info@puntocambio.ec"}\n💬 **WhatsApp:** disponible 24/7`,
+        [WA_REPLY, { label: "📍 Ver ubicaciones", action: "GO_LOCATIONS" }, BACK_TO_MENU],
+        400,
+      );
+    } else if (/hola|buenos|buenas|hey|hi|saludos/i.test(lower)) {
+      const greeting = `${getHourGreeting()}! 😊 ¿En qué te puedo ayudar?`;
+      addBotMessage(greeting, MAIN_MENU_REPLIES, 400);
+    } else if (/whatsapp|wsp|ws|hablar con humano|agente|persona/i.test(lower)) {
       window.open(WHATSAPP_URL, "_blank");
+    } else if (/gracias|thank/i.test(lower)) {
+      addBotMessage("¡Con gusto! 😊 Si necesitas algo más, aquí estoy. ¿Te puedo ayudar en algo más?", MAIN_MENU_REPLIES, 400);
+    } else if (/adi[oó]s|chau|hasta luego|bye/i.test(lower)) {
+      addBotMessage("¡Hasta luego! 👋 Que tengas un excelente día. Recuerda que estamos aquí cuando nos necesites.", [], 400);
     } else {
-      addBotMessage("Te muestro las opciones disponibles:", MAIN_MENU_REPLIES, 400);
+      addBotMessage("No estoy seguro de haber entendido. Te muestro las opciones disponibles:", MAIN_MENU_REPLIES, 400);
     }
   };
 
@@ -321,7 +404,6 @@ export const ChatBot = () => {
             exit={{ opacity: 0 }}
             transition={{ delay: 1.2 }}
           >
-            {/* Speed dial options */}
             <AnimatePresence>
               {speedDialOpen && (
                 <>
@@ -505,6 +587,12 @@ export const ChatBot = () => {
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Escribe tu pregunta…"
                   className="flex-1 text-sm bg-secondary/40 border border-border/40 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSend();
+                    }
+                  }}
                 />
                 <button
                   type="submit"

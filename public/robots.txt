@@ -1,5 +1,5 @@
 # robots.txt para Punto Cambio Ecuador
-# https://casasdecambios.com/
+# https://puntocambio.ec/
 
 User-agent: Googlebot
 Allow: /

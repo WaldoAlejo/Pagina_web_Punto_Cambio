@@ -17,9 +17,9 @@ const footerLinks = {
     { name: "Contacto", href: "/contacto" },
   ],
   legal: [
-    { name: "Términos y Condiciones", href: "#" },
-    { name: "Política de Privacidad", href: "#" },
-    { name: "Aviso Legal", href: "#" },
+    { name: "Términos y Condiciones", href: "/terminos" },
+    { name: "Política de Privacidad", href: "/privacidad" },
+    { name: "Aviso Legal", href: "/legal" },
   ],
 };
 
@@ -128,10 +128,10 @@ export const Footer = () => {
               <li className="flex items-center gap-2 sm:gap-3">
                 <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
                 <a
-                  href="mailto:info@casasdecambios.com"
+                  href="mailto:info@puntocambio.ec"
                   className="text-white/60 hover:text-primary transition-colors text-xs sm:text-sm break-all"
                 >
-                  info@casasdecambios.com
+                  info@puntocambio.ec
                 </a>
               </li>
             </ul>
@@ -147,14 +147,13 @@ export const Footer = () => {
           </p>
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
             {footerLinks.legal.map((link, index) => (
-              <button
+              <Link
                 key={index}
-                onClick={(e) => e.preventDefault()}
-                className="text-white/40 hover:text-white/50 text-xs sm:text-sm transition-colors cursor-not-allowed"
-                title="Próximamente disponible"
+                to={link.href}
+                className="text-white/40 hover:text-white/50 text-xs sm:text-sm transition-colors"
               >
                 {link.name}
-              </button>
+              </Link>
             ))}
           </div>
         </div>
