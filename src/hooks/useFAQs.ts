@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchFAQs } from "@/lib/supabase";
+import { fetchFAQs } from "@/lib/api";
 import type { FAQ } from "@/lib/types";
 
 export function useFAQs() {

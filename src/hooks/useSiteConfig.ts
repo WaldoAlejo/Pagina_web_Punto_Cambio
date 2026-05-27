@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchSiteConfig } from "@/lib/supabase";
+import { fetchSiteConfig } from "@/lib/api";
 
 export function useSiteConfig() {
   return useQuery({

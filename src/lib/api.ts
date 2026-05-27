@@ -1,7 +1,13 @@
 /**
- * Cliente PostgREST para GCP PostgreSQL.
- * PostgREST expone tu base de datos PostgreSQL como una API REST automática.
- * Apunta VITE_API_URL a tu instancia PostgREST: http://<GCP_IP>:3000
+ * Cliente API REST para PostgreSQL (GCP + PostgREST).
+ *
+ * PostgREST expone la base de datos PostgreSQL como una API REST.
+ * URL configurada en VITE_API_URL → apunta a Cloud Run (GCP).
+ *
+ * Para actualizar la base de datos directamente, ver:
+ *   scripts/update-branches.cjs  → actualizar sucursales
+ *   database/seed.sql            → script SQL completo
+ *   database/001_schema.sql      → estructura de tablas
  */
 
 import type { Branch, FAQ, SiteConfig, ExchangeRateOverride } from "./types";

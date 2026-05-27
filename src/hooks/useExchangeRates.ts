@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchSiteConfig, fetchExchangeOverrides } from "@/lib/supabase";
+import { fetchSiteConfig, fetchExchangeOverrides } from "@/lib/api";
 import type { CurrencyRate } from "@/lib/types";
 
 // Catálogo completo de monedas soportadas — agregar más aquí si hace falta

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchBranches } from "@/lib/supabase";
+import { fetchBranches } from "@/lib/api";
 import type { Branch } from "@/lib/types";
 
 export function useBranches() {
