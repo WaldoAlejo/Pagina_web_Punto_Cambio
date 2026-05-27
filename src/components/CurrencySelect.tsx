@@ -30,6 +30,13 @@ interface CurrencySelectProps {
   placeholder?: string;
 }
 
+/* Quita tildes y convierte a minúsculas para búsqueda sin acentos */
+const normalize = (str: string) =>
+  str
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
 export const CurrencySelect = ({
   currencies,
   value,
@@ -70,9 +77,9 @@ export const CurrencySelect = ({
           filter={(value, search) => {
             const currency = currencies.find((c) => c.code.toLowerCase() === value.toLowerCase());
             if (!currency) return 0;
-            const searchLower = search.toLowerCase();
-            const text = `${currency.code} ${currency.name} ${currency.flag}`.toLowerCase();
-            return text.includes(searchLower) ? 1 : 0;
+            const searchNorm = normalize(search);
+            const textNorm = normalize(`${currency.code} ${currency.name} ${currency.flag}`);
+            return textNorm.includes(searchNorm) ? 1 : 0;
           }}
         >
           <div className="flex items-center border-b px-3" cmdk-input-wrapper="">
