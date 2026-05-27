@@ -85,8 +85,8 @@ body {
   background: #B8941F;
 }
 
-/* Prevent horizontal scroll */
-* {
+/* Prevent horizontal scroll — exclude Leaflet internals */
+*:not(.leaflet-container *):not(.leaflet-popup *):not(.leaflet-marker-icon *) {
   max-width: 100%;
 }
 
@@ -280,4 +280,85 @@ a {
     min-width: 44px;
     min-height: 44px;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Leaflet popup fixes — Tailwind compatibility
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Wrapper del popup */
+.leaflet-popup-content-wrapper {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px -10px rgba(0,0,0,0.3);
+  padding: 0;
+}
+
+/* Contenido interno */
+.leaflet-popup-content {
+  margin: 0 !important;
+  width: auto !important;
+  min-width: 220px;
+  max-width: 280px;
+}
+
+/* Flecha del popup */
+.leaflet-popup-tip {
+  background: #fff;
+}
+
+/* Botón cerrar */
+.leaflet-container a.leaflet-popup-close-button {
+  color: #666;
+  font-size: 20px;
+  padding: 6px;
+  top: 4px;
+  right: 4px;
+  width: 28px;
+  height: 28px;
+  line-height: 1;
+}
+
+.leaflet-container a.leaflet-popup-close-button:hover {
+  color: #000;
+}
+/* ═══════════════════════════════════════════════════════════════
+   Leaflet popup fixes — Tailwind compatibility
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Wrapper del popup */
+.leaflet-popup-content-wrapper {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px -10px rgba(0,0,0,0.3);
+  padding: 0;
+}
+
+/* Contenido interno */
+.leaflet-popup-content {
+  margin: 0 !important;
+  width: auto !important;
+  min-width: 220px;
+  max-width: 280px;
+}
+
+/* Flecha del popup */
+.leaflet-popup-tip {
+  background: #fff;
+}
+
+/* Botón cerrar */
+.leaflet-container a.leaflet-popup-close-button {
+  color: #666;
+  font-size: 20px;
+  padding: 6px;
+  top: 4px;
+  right: 4px;
+  width: 28px;
+  height: 28px;
+  line-height: 1;
+}
+
+.leaflet-container a.leaflet-popup-close-button:hover {
+  color: #000;
 }

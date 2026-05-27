@@ -150,15 +150,15 @@ export const LocationsMap = () => {
                     click: () => setActiveId(branch.id),
                   }}
                 >
-                  <Popup className="punto-cambio-popup">
-                    <div className="min-w-[200px]">
-                      <h4 className="font-display font-bold text-sm text-foreground mb-1">
+                  <Popup>
+                    <div className="p-3">
+                      <h4 className="font-display font-bold text-sm text-foreground mb-1 pr-5 leading-tight">
                         {branch.name}
                       </h4>
-                      <p className="text-xs text-muted-foreground mb-1">
+                      <p className="text-xs text-muted-foreground mb-0.5 leading-snug">
                         {branch.address}
                       </p>
-                      <p className="text-xs text-muted-foreground mb-2">
+                      <p className="text-xs text-muted-foreground mb-3 leading-snug">
                         {branch.city}
                       </p>
                       <div className="flex flex-wrap gap-2">
@@ -166,7 +166,7 @@ export const LocationsMap = () => {
                           href={`https://www.google.com/maps/dir/?api=1&destination=${branch.lat},${branch.lng}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-[11px] bg-primary/10 text-primary px-2 py-1 rounded-md hover:bg-primary hover:text-dark transition-colors"
+                          className="inline-flex items-center gap-1 text-[11px] bg-primary/10 text-primary px-2.5 py-1.5 rounded-md hover:bg-primary hover:text-dark transition-colors font-medium"
                         >
                           <Navigation className="w-3 h-3" />
                           Cómo llegar
@@ -176,7 +176,7 @@ export const LocationsMap = () => {
                             href={`https://wa.me/${branch.whatsapp.replace(/\D/g, "")}?text=Hola%2C%20quiero%20informaci%C3%B3n`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-[11px] bg-green-50 text-green-700 px-2 py-1 rounded-md hover:bg-green-500 hover:text-white transition-colors"
+                            className="inline-flex items-center gap-1 text-[11px] bg-green-50 text-green-700 px-2.5 py-1.5 rounded-md hover:bg-green-500 hover:text-white transition-colors font-medium"
                           >
                             <MessageCircle className="w-3 h-3" />
                             WhatsApp
