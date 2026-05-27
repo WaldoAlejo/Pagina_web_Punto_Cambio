@@ -31,10 +31,20 @@ async function pgFetch<T>(path: string, params?: Record<string, string>): Promis
 
 export async function fetchBranches(): Promise<Branch[]> {
   try {
-    return await pgFetch<Branch>("/branches", {
+    const apiBranches = await pgFetch<Branch>("/branches", {
       is_active: "eq.true",
       order: "name.asc",
     });
+
+    /* Merge con fallback: las de la API tienen prioridad,
+       pero si faltan sucursales del fallback las incluimos. */
+    const byName = new Map<string, Branch>();
+    STATIC_BRANCHES.forEach((b) => byName.set(b.name, b));
+    apiBranches.forEach((b) => byName.set(b.name, b));
+
+    return Array.from(byName.values()).sort((a, b) =>
+      a.name.localeCompare(b.name),
+    );
   } catch {
     return STATIC_BRANCHES;
   }
